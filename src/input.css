@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
+    line-height: 1.5;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #1b1f24;
+
+    /* font-synthesis: none; */
+    text-rendering: optimizeLegibility;
+    -font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    position: relative;
+    border-radius: 15px 15px 0 0;
+    /* Rounded top borders */
+    padding-top: 1rem;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 1rem;
+    /* Height of the golden border */
+    background: linear-gradient(to right, #ffd700, #ff8c00);
+    /* Golden gradient effect */
+    border-radius: 15px 15px 0 0;
+    /* Rounded top borders */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 140, 0, 0.6);
+    /* Glowing effect */
+}
+
+.glow {
+    box-shadow: 0 0 7px 3px rgba(50, 79, 77, 0.75); /* Red glow */
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .glow:hover {
+    box-shadow: 0 0 10px 5px rgb(214, 200, 4); /* Brighter red glow on hover */
+  }
