@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { PRTeamCards } from "../data/cardData"
 import Card from '../components/card';
 
+import useCardDrawer from '../hooks/useCardDrawer';
 // Firebase
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
@@ -10,6 +11,7 @@ import { analytics } from '../firebase';
 export const EnterData: React.FC = () => {
 
     const [tab, setTab] = useState<string>("PR&Team")
+    const { openDrawer } = useCardDrawer();
 
     return (
         <>
@@ -43,7 +45,9 @@ export const EnterData: React.FC = () => {
             <div className='flex flex-wrap justify-center'>
                 {
                     PRTeamCards.map((data, index) => (
-                        <Card key={index} id={data.id} name={data.name} img={data.img} />
+                        <Card key={index} id={data.id} name={data.name} img={data.img} onClick={() => {
+                            openDrawer(data)
+                        }} />
                     ))
                 }
             </div>

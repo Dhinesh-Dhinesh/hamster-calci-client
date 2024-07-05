@@ -11,19 +11,23 @@ type CardProps = {
     pph?: number | null;
     price?: number | null;
     roi?: number | null;
+    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Card: React.FC<CardProps> = ({ id, name, img, pph, price, roi }) => {
+const Card: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onClick }) => {
     return (
-        <div className='p-2 flex-1 min-w-[48%] max-w-[48%]' key={id}>
+        <div className='p-2 flex-1 min-w-[48%] max-w-[48%]' key={id} onClick={onClick}>
             <div className="bg-cardBackground rounded-lg p-4 text-white text-center">
+
+                {/* Image and title */}
                 <div className="flex items-center justify-start overflow-hidden">
                     <div
                         className="bg-no-repeat bg-center bg-contain w-14 h-14"
                         style={{ backgroundImage: `url(${img})` }}
                     ></div>
-                    <div className="text-xs font-bold ml-2 flex-1">{name}</div>
+                    <p className="text-xs font-bold ml-2 flex-1">{name}</p>
                 </div>
+
                 <hr className='p-1 border-[#85888e]' />
                 <div className="text-[.6rem] text-left text-[#85888e]">
                     Profit per hour: <span className='text-white font-bold'>{pph ? formatNumber(pph) : 0}</span>
@@ -34,7 +38,7 @@ const Card: React.FC<CardProps> = ({ id, name, img, pph, price, roi }) => {
                     <span className='text-white font-bold'>{price ? formatNumber(price) : 0}</span>
                 </div>
                 <div className="text-[.6rem] font-semibold text-left text-[#85888e]">
-                    ROI: <span className='text-white font-bold'>{roi ? roi + " Days" : " - " }</span>
+                    ROI: <span className='text-white font-bold'>{roi ? roi + " Days" : " - "}</span>
                 </div>
             </div>
         </div>
