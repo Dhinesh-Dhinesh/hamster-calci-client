@@ -2,13 +2,16 @@
 import React, { useState, useEffect } from 'react';
 // import UserDetails from './userDetails';
 
-import { Routes, Route, useNavigate } from "react-router-dom"
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 
 // images
 import hamsterLogo from "./assets/hamster-kombat-coin.png"
 import { TopCards } from './pages/topCards';
 import { EnterData } from './pages/enterData';
 
+// Firebase
+import { logEvent } from 'firebase/analytics';
+import { analytics } from './firebase';
 
 interface User {
   id: number;
@@ -21,9 +24,8 @@ interface User {
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
 
-  const [bottomTab, setBottomTab] = useState<string>("TopCards")
-
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Check if Telegram Web App is available
@@ -45,7 +47,19 @@ const App: React.FC = () => {
     }
   }, []);
 
-  if (!user) return;
+  // Analytics page_view key
+  useEffect(() => {
+    const pathName: string = location.pathname;
+
+    // Log page view for routes other than the initial load
+    if (pathName !== "/") {
+      logEvent(analytics, "page_view");
+    }
+
+    console.log(pathName);
+  }, [location]);
+
+  // if (!user) return;
 
   return (
     <div className='flex flex-col'>
@@ -62,13 +76,11 @@ const App: React.FC = () => {
 
       {/* bottom tab */}
       <div className='bg-cardBackground mx-[1rem] p-1 rounded-2xl flex justify-evenly fixed bottom-0 left-0 right-0 z-50'>
-        <button className={`text-sm font-bold h-12 w-1/2 ${bottomTab === "TopCards" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
-          setBottomTab("TopCards")
+        <button className={`text-sm font-bold h-12 w-1/2 ${location.pathname === "/" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/')
         }
         }>Top Cards</button>
-        <button className={`text-sm font-bold h-12 w-1/2 ${bottomTab === "EnterData" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
-          setBottomTab("EnterData")
+        <button className={`text-sm font-bold h-12 w-1/2 ${location.pathname === "/enter-data" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/enter-data')
         }
         }>Enter Data</button>

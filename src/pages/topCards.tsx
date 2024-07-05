@@ -1,5 +1,8 @@
 import KombatImage from "../assets/kombat.webp"
 
+// Firebase
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../firebase';
 
 interface User {
     id: number;
@@ -14,10 +17,15 @@ interface TopCardsProps {
 }
 
 export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
+
     return (
         <>
             <div className='bg-cardBackground my-1 mx-4 p-1 rounded-lg flex overflow-hidden'>
-                <div className="p-2">
+                <div className="p-2" onClick={() => {
+                    logEvent(analytics, "button_click", {
+                        button_name: "Hamster_Glow"
+                    })
+                }}>
                     <img src={KombatImage} alt="kombat" width={80} height={80} className="border-[1px] border-yellow-500 glow rounded-full" />
                 </div>
                 <div className="flex flex-col p-2 m-auto w-full">
@@ -30,6 +38,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
                 <p className="text-xs text-[#85888e]">Based on your data</p>
             </div>
 
+            {/* eslint-disable-next-line */}
             {"null" === "null" ? (
                 <>
                     <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center ">To see the top cards, enter your Hamster Kombat game cards' ("profit per hour & price") on the enter data page.</div>
