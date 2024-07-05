@@ -51,11 +51,24 @@ const App: React.FC = () => {
   useEffect(() => {
     const pathName: string = location.pathname;
 
-    // Log page view for routes other than the initial load
-    if (pathName !== "/") {
-      logEvent(analytics, "page_view");
+    function logScreenView(screenName: string, screenClass: string): void {
+      logEvent(analytics, "screen_view", {
+        firebase_screen: screenName,
+        firebase_screen_class: screenClass,
+      });
     }
 
+    // Log screen view for all screens
+    switch (pathName) {
+      case "/":
+        logScreenView("Top cards", "TopCards");
+        break;
+      case "/enter-data":
+        logScreenView("Enter data", "EnterData");
+        break;
+      default:
+        break;
+    }
     console.log(pathName);
   }, [location]);
 
