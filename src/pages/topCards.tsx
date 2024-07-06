@@ -35,13 +35,13 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
             </div>
             <div className='bg-cardBackground my-2 mx-4 p-2 rounded-lg flex flex-col'>
                 <p>Best Cards To Buy 🪙</p>
-                <p className="text-xs text-[#85888e]">Based on your data</p>
+                <p className="text-xs text-[#85888e]">Based on your data, ROI(Return on investment) less is best</p>
             </div>
 
             {/* eslint-disable-next-line */}
             {"null" === "null" ? (
                 <>
-                    <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center ">To see the top cards, enter your Hamster Kombat game cards' ("profit per hour & price") on the enter data page.</div>
+                    <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center ">To see the top cards, enter your "Hamster Kombat" game cards ("profit per hour & price") on the enter data page.</div>
                 </>
             ) : (
                 <>
