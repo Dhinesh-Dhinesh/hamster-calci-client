@@ -781,29 +781,14 @@ video {
   border-width: 1px;
 }
 
-.border-\[\#2365eb\] {
+.border-\[\#464749\] {
   --tw-border-opacity: 1;
-  border-color: rgb(35 101 235 / var(--tw-border-opacity));
+  border-color: rgb(70 71 73 / var(--tw-border-opacity));
 }
 
 .border-yellow-500 {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity));
-}
-
-.border-\[\#1f1f20\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(31 31 32 / var(--tw-border-opacity));
-}
-
-.border-\[\#323233\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(50 50 51 / var(--tw-border-opacity));
-}
-
-.border-\[\#464749\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(70 71 73 / var(--tw-border-opacity));
 }
 
 .bg-background {
