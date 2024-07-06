@@ -10,9 +10,11 @@ type CardProps = {
     price?: number | null;
     roi?: number | null;
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+    page?: "main"
+    type?: "PR&Team" | "Markets" | "Legal" | "Specials"
 }
 
-const MemoizedCard: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onClick }) => {
+const MemoizedCard: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onClick, page, type }) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         if (onClick) {
             onClick(event);
@@ -42,8 +44,16 @@ const MemoizedCard: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onC
             <div className="text-[.6rem] font-semibold text-left text-[#85888e]">
                 ROI: <span className='text-white font-bold'>{roi ? roi + " Days" : " - "}</span>
             </div>
+            {
+                page === "main" && (
+                    <>
+                        <hr className='mt-2 border-[#464749]' />
+                        <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e]">{type}</p>
+                    </>
+                )
+            }
         </div>
-    ), [name, img, pph, price, roi]);
+    ), [name, img, pph, price, roi, page, type]);
 
     return (
         <div className='p-2 flex-1 min-w-[48%] max-w-[48%]' key={id} onClick={handleClick}>

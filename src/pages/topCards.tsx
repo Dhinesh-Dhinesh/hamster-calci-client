@@ -3,6 +3,12 @@ import KombatImage from "../assets/kombat.webp"
 // Firebase
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
+import { useCardData } from "../hooks/useCardData";
+import { useEffect, useState } from "react";
+import { combineCardsData, CombinedCard } from "../util/combineCards";
+import { Card as CardType, MarketsCards, PRTeamCards } from "../data/cardData";
+import useCardDrawer from "../hooks/useCardDrawer";
+import Card from "../components/card";
 
 interface User {
     id: number;
@@ -17,6 +23,39 @@ interface TopCardsProps {
 }
 
 export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
+
+    const [cards, setCards] = useState<CombinedCard[] | null>(null);
+
+    const { cardData } = useCardData()
+    const { openDrawer } = useCardDrawer();
+
+    useEffect(() => {
+        const tempCards: (CombinedCard | CardType)[] = [];
+
+        if (cardData) {
+
+            const prteamCards = cardData?.prteam ? combineCardsData(PRTeamCards, cardData.prteam) : [];
+            const marketsCards = cardData?.markets ? combineCardsData(MarketsCards, cardData.markets) : [];
+
+            tempCards.push(...prteamCards, ...marketsCards);
+
+            // Type guard to check if a card is a CombinedCard
+            const isCombinedCard = (card: CardType | CombinedCard): card is CombinedCard => {
+                return 'roi' in card;
+            };
+
+            // Filter and sort the cards by ROI, handling optional ROI
+            const sortedCards = tempCards
+                .filter(isCombinedCard) // Filter cards that are CombinedCard with ROI
+                .filter(card => card.roi !== undefined && !isNaN(card.roi)) // Exclude cards with ROI NaN or undefined
+                .sort((a, b) => (a.roi ?? 0) - (b.roi ?? 0)); // Sort cards by ROI in ascending order, treating undefined as 0
+
+            // Do something with sortedCards, like setting state or other processing
+            console.log(sortedCards);
+            setCards(sortedCards)
+
+        }
+    }, [cardData]);
 
     return (
         <>
@@ -39,13 +78,32 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
             </div>
 
             {/* eslint-disable-next-line */}
-            {"null" === "null" ? (
+            {cards && cards.length === 0 ? (
                 <>
                     <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center ">To see the top cards, enter your "Hamster Kombat" game cards ("profit per hour & price") on the enter data page.</div>
                 </>
             ) : (
                 <>
-                    <div>cards</div>
+                    {/* Cards */}
+                    <div className='flex flex-wrap justify-center'>
+                        {
+                            cards?.map((data, index) => (
+                                <Card
+                                    key={index}
+                                    id={data.id}
+                                    name={data.name}
+                                    img={data.img}
+                                    roi={data?.roi}
+                                    pph={data?.pph}
+                                    price={data?.price}
+                                    page="main"
+                                    type={data?.type}
+                                    onClick={() => {
+                                        openDrawer(data)
+                                    }} />
+                            ))
+                        }
+                    </div>
                 </>
             )}
         </>
