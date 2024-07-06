@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { PRTeamCards, MarketsCards } from "../data/cardData"
 import Card from '../components/card';
+import { combineCardsData, CombinedCard } from '../util/combineCards';
+import { useCardData } from '../hooks/useCardData';
 
 import useCardDrawer from '../hooks/useCardDrawer';
 // Firebase
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
-import { combineCardsData, CombinedCard } from '../util/combineCards';
-import { useCardData } from '../hooks/useCardData';
-// import { CardData } from '../util/FirestoreService';
-// import { cleanString } from '../util/cleanString';
+
 
 export const EnterData: React.FC = () => {
 
@@ -19,23 +18,6 @@ export const EnterData: React.FC = () => {
 
     const { openDrawer } = useCardDrawer();
     const { cardData } = useCardData()
-
-    // useEffect(() => {
-
-    //     if (cardData) {
-
-    //         console.log(`run run`)
-
-    //         if (cardData == null) setCards(PRTeamCards)
-
-    //         const cardsData = combineCardsData(PRTeamCards, cardData[cleanString(tab) as keyof CardData])
-    //         console.log(cardsData, { hi: "hi" })
-    //         setCards(cardsData)
-    //     }
-
-    //     console.log("effect from enter data page")
-
-    // }, [cardData, setCards, tab])
 
     // Change card data based on tabs
     useEffect(() => {
