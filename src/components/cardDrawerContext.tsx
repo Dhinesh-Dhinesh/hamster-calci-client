@@ -1,19 +1,18 @@
 import { createContext, useState, ReactNode, FC } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { Drawer } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
-// Define the context value types
-type Card = {
-    id: number,
-    name: string,
-    img: string,
-    type: "PR&Team" | "Markets" | "Legal" | "Specials"
-}
+import { CombinedCard } from '../util/combineCards';
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
-    openDrawer: (data: Card) => void;
+    openDrawer: (data: CombinedCard) => void;
     closeDrawer: () => void;
+}
+
+interface FormData {
+    pph: number;
+    price: number;
 }
 
 // Create the context
@@ -21,14 +20,27 @@ const CardDrawerContext = createContext<CardDrawerContextType | undefined>(undef
 
 // Create a provider component
 const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-    const [data, setData] = useState<Card>()
+    // react hook form
+    const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm<FormData>();
 
-    const openDrawer = (data: Card) => {
+    const onSubmit: SubmitHandler<FormData> = (formData) => {
+        console.log(formData);
+    };
+
+    // drawer
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [data, setData] = useState<CombinedCard>()
+
+    const openDrawer = (data: CombinedCard) => {
         setData(data)
         setIsDrawerOpen(true)
     }
-    const closeDrawer = () => setIsDrawerOpen(false);
+    const closeDrawer = () => {
+        setIsDrawerOpen(false);
+        reset()
+        clearErrors()
+    }
+
 
     return (
         <CardDrawerContext.Provider value={{ isDrawerOpen, openDrawer, closeDrawer }}>
@@ -73,22 +85,35 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                             <p className="text-xs font-bold ml-2 flex-1">{data?.name}</p>
                         </div>
 
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <p>Profit per hour:</p>
                             <div className='my-2'>
                                 <input
-                                    type='text'
-                                    placeholder='Profit per Hour'
+                                    type='number'
+                                    autoComplete='off'
+                                    placeholder={data?.pph !== undefined ? data.pph.toString() : "Profit per hour"}
                                     className='w-full px-4 py-2 border rounded-lg'
+                                    {...register("pph", {
+                                        required: "Profit per hour is required",
+                                        pattern: { value: /^[0-9]+$/, message: "Only numbers are allowed" }
+                                    })}
                                 />
+                                {errors.pph && <p className='text-red-500 text-sm mt-1'>{errors.pph.message}</p>}
                             </div>
                             <p className='text-[#85888e] text-sm'>Ex: Enter 10,230 if your pph is 10.23K.</p>
                             <p>Price:</p>
                             <div className='my-2'>
                                 <input
-                                    type='text'
-                                    placeholder='Price'
+                                    type='number'
+                                    autoComplete='off'
+                                    placeholder={data?.price !== undefined ? data.price.toString() : "Price"}
                                     className='w-full px-4 py-2 border rounded-lg'
+                                    {...register("price", {
+                                        required: "Price is required",
+                                        pattern: { value: /^[0-9]+$/, message: "Only numbers are allowed" }
+                                    })}
                                 />
+                                {errors.price && <p className='text-red-500 text-sm mt-1'>{errors.price.message}</p>}
                             </div>
                             <p className='text-[#85888e] text-sm'>Ex: If your price is 1.15M open your card enter the exact price like (1,154,634)</p>
                             <div className='my-2'>

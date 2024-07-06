@@ -5,7 +5,7 @@ import Support_Team from "../assets/icons/support_team.png"
 import HamsterBook from "../assets/icons/hamster_book.png"
 import HamsterTube from "../assets/icons/hamster_tube.png"
 
-type Card = {
+export type Card = {
     id: number,
     name: string,
     img: string,

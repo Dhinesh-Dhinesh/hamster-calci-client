@@ -23,7 +23,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
             <div className='bg-cardBackground my-1 mx-4 p-1 rounded-lg flex overflow-hidden'>
                 <div className="p-2" onClick={() => {
                     logEvent(analytics, "button_click", {
-                        button_name: "Hamster_Glow"
+                        button_name: "Hamster Glow"
                     })
                 }}>
                     <img src={KombatImage} alt="kombat" width={80} height={80} className="border-[1px] border-yellow-500 glow rounded-full" />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PRTeamCards } from "../data/cardData"
 import Card from '../components/card';
@@ -7,11 +7,30 @@ import useCardDrawer from '../hooks/useCardDrawer';
 // Firebase
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
+import { combineCardsData, CombinedCard } from '../util/combineCards';
+import { useCardData } from '../hooks/useCardData';
+import { CardData } from '../util/FirestoreService';
+import { cleanString } from '../util/cleanString';
 
 export const EnterData: React.FC = () => {
 
     const [tab, setTab] = useState<string>("PR&Team")
+    const [cards, setCards] = useState<CombinedCard[] | null>(null);
+
     const { openDrawer } = useCardDrawer();
+    const { cardData } = useCardData()
+
+    useEffect(() => {
+
+        if (cardData) {
+            const cardsData = combineCardsData(PRTeamCards, cardData[cleanString(tab) as keyof CardData])
+            console.log(cardsData)
+            setCards(cardsData)
+        } else {
+            setCards(PRTeamCards)
+        }
+
+    }, [cardData, setCards, tab])
 
     return (
         <>
@@ -44,10 +63,18 @@ export const EnterData: React.FC = () => {
             {/* Cards */}
             <div className='flex flex-wrap justify-center'>
                 {
-                    PRTeamCards.map((data, index) => (
-                        <Card key={index} id={data.id} name={data.name} img={data.img} onClick={() => {
-                            openDrawer(data)
-                        }} />
+                    cards && cards.map((data, index) => (
+                        <Card
+                            key={index}
+                            id={data.id}
+                            name={data.name}
+                            img={data.img}
+                            roi={data?.roi}
+                            pph={data?.pph}
+                            price={data?.price}
+                            onClick={() => {
+                                openDrawer(data)
+                            }} />
                     ))
                 }
             </div>
