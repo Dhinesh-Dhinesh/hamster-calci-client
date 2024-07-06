@@ -8,11 +8,11 @@ import { CardDataProvider } from './components/cardDataContext.tsx'
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <CardDrawerProvider>
-        <CardDataProvider>
+      <CardDataProvider>
+        <CardDrawerProvider>
           <App />
-        </CardDataProvider>
-      </CardDrawerProvider>
+        </CardDrawerProvider>
+      </CardDataProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )

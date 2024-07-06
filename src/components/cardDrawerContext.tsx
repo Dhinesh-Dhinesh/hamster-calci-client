@@ -7,6 +7,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { convertStringToNumber } from '../util/numberFormat';
 import { updateCard } from '../util/FirestoreService';
 import { cleanString } from '../util/cleanString';
+import { useCardData } from '../hooks/useCardData';
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
@@ -24,6 +25,8 @@ const CardDrawerContext = createContext<CardDrawerContextType | undefined>(undef
 
 // Create a provider component
 const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
+
+    const { refetchCards } = useCardData();
 
     //Submit loading
     const [loading, setLoading] = useState(false);
@@ -60,6 +63,8 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
             pph: toUpdata.pph as number,
             price: toUpdata.price as number
         }).then(() => {
+            // refetch cards data then change loading state & close drawer and 
+            refetchCards()
             setLoading(false);
             closeDrawer();
         })
