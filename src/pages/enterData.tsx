@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { PRTeamCards } from "../data/cardData"
+import { PRTeamCards, MarketsCards } from "../data/cardData"
 import Card from '../components/card';
 
 import useCardDrawer from '../hooks/useCardDrawer';
@@ -9,28 +9,59 @@ import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
 import { combineCardsData, CombinedCard } from '../util/combineCards';
 import { useCardData } from '../hooks/useCardData';
-import { CardData } from '../util/FirestoreService';
-import { cleanString } from '../util/cleanString';
+// import { CardData } from '../util/FirestoreService';
+// import { cleanString } from '../util/cleanString';
 
 export const EnterData: React.FC = () => {
 
     const [tab, setTab] = useState<string>("PR&Team")
-    const [cards, setCards] = useState<CombinedCard[] | null>(null);
+    const [cards, setCards] = useState<CombinedCard[] | null>(PRTeamCards);
 
     const { openDrawer } = useCardDrawer();
     const { cardData } = useCardData()
 
+    // useEffect(() => {
+
+    //     if (cardData) {
+
+    //         console.log(`run run`)
+
+    //         if (cardData == null) setCards(PRTeamCards)
+
+    //         const cardsData = combineCardsData(PRTeamCards, cardData[cleanString(tab) as keyof CardData])
+    //         console.log(cardsData, { hi: "hi" })
+    //         setCards(cardsData)
+    //     }
+
+    //     console.log("effect from enter data page")
+
+    // }, [cardData, setCards, tab])
+
+    // Change card data based on tabs
     useEffect(() => {
+        switch (tab) {
+            case "PR&Team":
+                setCards(PRTeamCards)
 
-        if (cardData) {
-            const cardsData = combineCardsData(PRTeamCards, cardData[cleanString(tab) as keyof CardData])
-            console.log(cardsData)
-            setCards(cardsData)
-        } else {
-            setCards(PRTeamCards)
+                if (cardData?.prteam) {
+                    const cardsData = combineCardsData(PRTeamCards, cardData.prteam);
+                    setCards(cardsData)
+                }
+
+                break;
+            case "Markets":
+                setCards(MarketsCards)
+
+                if (cardData?.markets) {
+                    const cardsData = combineCardsData(MarketsCards, cardData.markets);
+                    setCards(cardsData)
+                }
+
+                break;
+            default:
+                break;
         }
-
-    }, [cardData, setCards, tab])
+    }, [tab, cardData])
 
     return (
         <>
@@ -39,7 +70,7 @@ export const EnterData: React.FC = () => {
                 <button
                     onClick={() => {
                         setTab("PR&Team")
-                        logEvent(analytics, "PR_Team")
+                        logEvent(analytics, "PR&Team")
                     }}
                     className={`${tab === "PR&Team" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>PR&Team</button>
                 <button

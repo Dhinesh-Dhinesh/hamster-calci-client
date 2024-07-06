@@ -25,10 +25,10 @@ const Card: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onClick }) 
                         className="bg-no-repeat bg-center bg-contain w-14 h-14"
                         style={{ backgroundImage: `url(${img})` }}
                     ></div>
-                    <p className="text-xs font-bold ml-2 flex-1">{name}</p>
+                    <p className="text-xs font-bold ml-2 flex-1 text-left">{name}</p>
                 </div>
 
-                <hr className='p-1 border-[#85888e]' />
+                <hr className='p-1 border-[#464749]' />
                 <div className="text-[.6rem] text-left text-[#85888e]">
                     Profit per hour: <span className='text-white font-bold'>{pph ? formatNumber(pph) : 0}</span>
                 </div>

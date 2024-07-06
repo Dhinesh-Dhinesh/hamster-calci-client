@@ -4,6 +4,9 @@ import { Drawer } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CombinedCard } from '../util/combineCards';
 import LoadingButton from '@mui/lab/LoadingButton';
+import { convertStringToNumber } from '../util/numberFormat';
+import { updateCard } from '../util/FirestoreService';
+import { cleanString } from '../util/cleanString';
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
@@ -12,8 +15,8 @@ export interface CardDrawerContextType {
 }
 
 interface FormData {
-    pph: number;
-    price: number;
+    pph: string;
+    price: string;
 }
 
 // Create the context
@@ -25,23 +28,44 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     //Submit loading
     const [loading, setLoading] = useState(false);
 
+    // drawer
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [data, setData] = useState<CombinedCard>()
+
     // react hook form
     const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm<FormData>();
 
     const onSubmit: SubmitHandler<FormData> = (formData) => {
         setLoading(true);
-        console.log(formData);
-        // Simulate an async operation
-        setTimeout(() => {
+
+        if (!data) return;
+
+        const toUpdata = {
+            id: data.id,
+            pph: convertStringToNumber(formData.pph),
+            price: convertStringToNumber(formData.price),
+        }
+
+        // ! log
+        console.log({
+            id: data.id,
+            pph: convertStringToNumber(formData.pph),
+            price: convertStringToNumber(formData.price),
+        });
+
+        const cardType = cleanString(data.type)
+
+        updateCard("1MZVle2lDZ8s2w0FUysv", cardType, {
+            id: toUpdata.id,
+            pph: toUpdata.pph as number,
+            price: toUpdata.price as number
+        }).then(() => {
             setLoading(false);
             closeDrawer();
-        }, 2000);
+        })
     };
 
     // drawer
-    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
-    const [data, setData] = useState<CombinedCard>()
-
     const openDrawer = (data: CombinedCard) => {
         setData(data)
         setIsDrawerOpen(true)
@@ -111,7 +135,7 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                                 />
                                 {errors.pph && <p className='text-red-500 text-sm mt-1'>{errors.pph.message}</p>}
                             </div>
-                            <p className='text-[#85888e] text-sm'>Ex: Enter 10,230 if your pph is 10.23K.</p>
+                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,770 if your pph is +1.77K.</p>
                             <p>Price:</p>
                             <div className='my-2'>
                                 <input
@@ -126,7 +150,9 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                                 />
                                 {errors.price && <p className='text-red-500 text-sm mt-1'>{errors.price.message}</p>}
                             </div>
-                            <p className='text-[#85888e] text-sm'>Ex: If your price is 1.15M open your card enter the exact price like (1,154,634)</p>
+                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,154,634 if your price is 1.15M</p>
+                            <hr className='mt-2 p-1 border-[#464749]' />
+                            <p className='text-[#85888e] text-xs'>Open your card in "Hamster Kombat" & Enter the exact Profit per hour and Price of your card</p>
                             <div className='my-2'>
                                 <LoadingButton
                                     type='submit'
