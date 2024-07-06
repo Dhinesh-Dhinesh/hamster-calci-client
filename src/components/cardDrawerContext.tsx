@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Drawer } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CombinedCard } from '../util/combineCards';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
@@ -20,11 +21,21 @@ const CardDrawerContext = createContext<CardDrawerContextType | undefined>(undef
 
 // Create a provider component
 const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
+
+    //Submit loading
+    const [loading, setLoading] = useState(false);
+
     // react hook form
     const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm<FormData>();
 
     const onSubmit: SubmitHandler<FormData> = (formData) => {
+        setLoading(true);
         console.log(formData);
+        // Simulate an async operation
+        setTimeout(() => {
+            setLoading(false);
+            closeDrawer();
+        }, 2000);
     };
 
     // drawer
@@ -117,12 +128,19 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                             </div>
                             <p className='text-[#85888e] text-sm'>Ex: If your price is 1.15M open your card enter the exact price like (1,154,634)</p>
                             <div className='my-2'>
-                                <button
+                                <LoadingButton
                                     type='submit'
+                                    loading={loading}
+                                    variant='contained'
                                     className='w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600'
+                                    sx={{
+                                        '& .MuiCircularProgress-root': {
+                                            color: 'white',
+                                        },
+                                    }}
                                 >
                                     Submit
-                                </button>
+                                </LoadingButton>
                             </div>
                         </form>
                     </div>
