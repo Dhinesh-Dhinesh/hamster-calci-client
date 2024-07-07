@@ -58,6 +58,57 @@ import PtwoP from "../assets/icons/p_two_p.png"
 import TradingBots from "../assets/icons/trading_bots.png"
 import LayerZero from "../assets/icons/layer_zero.png"
 
+// Legal
+
+import KYC from "../assets/icons/kyc.png"
+import KYB from "../assets/icons/kyb.png"
+import LegalOpinion from "../assets/icons/legal_opinion.png"
+import SEC from "../assets/icons/sec.png"
+import AntiMoney from "../assets/icons/anti_money.png"
+import UAE from "../assets/icons/uae.png"
+import Europe from "../assets/icons/europe.png"
+import Asia from "../assets/icons/asia.png"
+import South from "../assets/icons/south.png"
+import Australia from "../assets/icons/australia.png"
+import North from "../assets/icons/north.png"
+import Nigeria from "../assets/icons/nigeria.png"
+import Japan from "../assets/icons/japan.png"
+import Ethiopia from "../assets/icons/ethiopia.png"
+import India from "../assets/icons/india.png"
+import Bangladesh from "../assets/icons/bangladesh.png"
+import Indonesia from "../assets/icons/indonesia.png"
+import Vietnam from "../assets/icons/vitenam.png"
+import Turkey from "../assets/icons/turkey.png"
+import Philippines from "../assets/icons/philippines.png"
+
+// Specials
+
+import CX from "../assets/icons/cxhub.png"
+import HamsterBreaks from "../assets/icons/hamsters_breaks.png"
+import XNetwork from "../assets/icons/x_network.png"
+import HamsterGreen from "../assets/icons/green_energy.png"
+import YoutubeTwentyFive from "../assets/icons/youtube_twenty_five.png"
+import TG from "../assets/icons/tg_leaders.png"
+import Premarket from "../assets/icons/premarket.png"
+import Merch from "../assets/icons/merch.png"
+import TONHamsterSuccess from "../assets/icons/ton_hamster_success.png"
+import Pirana from "../assets/icons/pirana.png"
+import WebThreeAccademy from "../assets/icons/webthree_academy.png"
+import GoldButton from "../assets/icons/youtube_gold.png"
+import YoutubeChannel from "../assets/icons/youtube_channel.png"
+import Pizza from "../assets/icons/pizza.png"
+import TopTenGlobal from "../assets/icons/top_ten.png"
+import NFT from "../assets/icons/nft.png"
+import SpecialHamster from "../assets/icons/special_hamster.png"
+import ShortSqueeze from "../assets/icons/short.png"
+import ThereAreTwo from "../assets/icons/there_are.png"
+import LongSqueeze from "../assets/icons/long.png"
+import Villa from "../assets/icons/villa.png"
+import AppCenter from "../assets/icons/app_center.png"
+import Bogdanoff from "../assets/icons/bogdanoff.png"
+import USDT from "../assets/icons/usdt.png"
+import Extra from "../assets/icons/extra.png"
+
 export type Card = {
     id: number,
     name: string,
@@ -393,5 +444,281 @@ export const MarketsCards: Card[] = [
         name: "LayerZero Listing",
         img: LayerZero,
         type: "Markets"
+    }
+]
+
+export const LegalCards: Card[] = [
+    {
+        id: 1,
+        name: "KYC",
+        img: KYC,
+        type: "Legal"
+    },
+    {
+        id: 2,
+        name: "KYB",
+        img: KYB,
+        type: "Legal"
+    },
+    {
+        id: 3,
+        name: "Legal opinion",
+        img: LegalOpinion,
+        type: "Legal"
+    },
+    {
+        id: 4,
+        name: "SEC transparancy",
+        img: SEC,
+        type: "Legal"
+    },
+    {
+        id: 5,
+        name: "Anti money loundering",
+        img: AntiMoney,
+        type: "Legal"
+    },
+    {
+        id: 6,
+        name: "Licence UAE",
+        img: UAE,
+        type: "Legal"
+    },
+    {
+        id: 7,
+        name: "Licence Europe",
+        img: Europe,
+        type: "Legal"
+    },
+    {
+        id: 8,
+        name: "Licence Asia",
+        img: Asia,
+        type: "Legal"
+    },
+    {
+        id: 9,
+        name: "Licence South America",
+        img: South,
+        type: "Legal"
+    },
+    {
+        id: 10,
+        name: "Licence Australia",
+        img: Australia,
+        type: "Legal"
+    },
+    {
+        id: 11,
+        name: "Licence North America",
+        img: North,
+        type: "Legal"
+    },
+    {
+        id: 12,
+        name: "Licence Nigeria",
+        img: Nigeria,
+        type: "Legal"
+    },
+    {
+        id: 13,
+        name: "Licence Japan",
+        img: Japan,
+        type: "Legal"
+    },
+    {
+        id: 14,
+        name: "Licence Ethiopia",
+        img: Ethiopia,
+        type: "Legal"
+    },
+    {
+        id: 15,
+        name: "Licence India",
+        img: India,
+        type: "Legal"
+    },
+    {
+        id: 16,
+        name: "Licence Bangladesh",
+        img: Bangladesh,
+        type: "Legal"
+    },
+    {
+        id: 17,
+        name: "Licence Indonesia",
+        img: Indonesia,
+        type: "Legal"
+    },
+    {
+        id: 18,
+        name: "Licence Vitenam",
+        img: Vietnam,
+        type: "Legal"
+    },
+    {
+        id: 19,
+        name: "Licence Turkey",
+        img: Turkey,
+        type: "Legal"
+    },
+    {
+        id: 20,
+        name: "Licence Philippines",
+        img: Philippines,
+        type: "Legal"
+    }
+]
+
+export const SpecialsCards : Card[] = [
+    {
+        id: 1,
+        name: "CX Hub Istanbul",
+        img: CX,
+        type: "Specials"
+    },
+    {
+        id: 2,
+        name: "Hamster breaks records",
+        img: HamsterBreaks,
+        type: "Specials"
+    },
+    {
+        id: 3,
+        name: "X Network 10 Million",
+        img: XNetwork,
+        type: "Specials"
+    },
+    {
+        id: 4,
+        name: "Hamster Green Energy",
+        img: HamsterGreen,
+        type: "Specials"
+    },
+    {
+        id: 5,
+        name: "YouTube 25 Million",
+        img: YoutubeTwentyFive,
+        type: "Specials"
+    },
+    {
+        id: 6,
+        name: "TG Leaders",
+        img: TG,
+        type: "Specials"
+    },
+    {
+        id: 7,
+        name: "Premarket Launch",
+        img: Premarket,
+        type: "Specials"
+    },
+    {
+        id: 8,
+        name: "Hamster Kombat merch",
+        img: Merch,
+        type: "Specials"
+    },
+    {
+        id: 9,
+        name: "TON + Hamster Kombat = Success",
+        img: TONHamsterSuccess,
+        type: "Specials"
+    },
+    {
+        id: 10,
+        name: "Consensus Piranha Pass",
+        img: Pirana,
+        type: "Specials"
+    },
+    {
+        id: 11,
+        name: "Web3 academy launch",
+        img: WebThreeAccademy,
+        type: "Specials"
+    },
+    {
+        id: 12,
+        name: "Youtube Gold Button",
+        img: GoldButton,
+        type: "Specials"
+    },
+    {
+        id: 13,
+        name: "Hamster YouTube channel",
+        img: YoutubeChannel,
+        type: "Specials"
+    },
+    {
+        id: 14,
+        name: "Bitcoin Pizza Day",
+        img: Pizza,
+        type: "Specials"
+    },
+    {
+        id: 15,
+        name: "Top 10 Global Ranking",
+        img: TopTenGlobal,
+        type: "Specials"
+    },
+    {
+        id: 16,
+        name: "NFT Collection Launch",
+        img: NFT,
+        type: "Specials"
+    },
+    {
+        id: 17,
+        name: "Special Hamster Conference",
+        img: SpecialHamster,
+        type: "Specials"
+    },
+    {
+        id: 18,
+        name: "Short squeeze",
+        img: ShortSqueeze,
+        type: "Specials"
+    },
+    {
+        id: 19,
+        name: "There are two chairs...",
+        img: ThereAreTwo,
+        type: "Specials"
+    },
+    {
+        id: 20,
+        name: "Long squeeze",
+        img: LongSqueeze,
+        type: "Specials"
+    },
+    {
+        id: 21,
+        name: "Villa for the DEV team",
+        img: Villa,
+        type: "Specials"
+    },
+    {
+        id: 22,
+        name: "Apps Center Listing",
+        img: AppCenter,
+        type: "Specials"
+    },
+    {
+        id: 23,
+        name: "Bogdanoff is calling",
+        img: Bogdanoff,
+        type: "Specials"
+    },
+    {
+        id: 24,
+        name: "USDT on TON",
+        img: USDT,
+        type: "Specials"
+    },
+    {
+        id: 25,
+        name: "Use this for time-limited cards",
+        img: Extra,
+        type: "Specials"
     }
 ]

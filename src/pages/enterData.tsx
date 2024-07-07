@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { PRTeamCards, MarketsCards } from "../data/cardData"
+import { PRTeamCards, MarketsCards, LegalCards, SpecialsCards } from "../data/cardData"
 import Card from '../components/card';
 import { combineCardsData, CombinedCard } from '../util/combineCards';
 import { useCardData } from '../hooks/useCardData';
@@ -29,8 +29,7 @@ export const EnterData: React.FC = () => {
                     const cardsData = combineCardsData(PRTeamCards, cardData.prteam);
                     setCards(cardsData)
                 }
-
-                break;
+                break
             case "Markets":
                 setCards(MarketsCards)
 
@@ -38,10 +37,25 @@ export const EnterData: React.FC = () => {
                     const cardsData = combineCardsData(MarketsCards, cardData.markets);
                     setCards(cardsData)
                 }
+                break
+            case "Legal":
+                setCards(LegalCards)
 
-                break;
+                if (cardData?.legal) {
+                    const cardsData = combineCardsData(LegalCards, cardData.legal);
+                    setCards(cardsData)
+                }
+                break
+            case "Specials":
+                setCards(SpecialsCards)
+
+                if (cardData?.specials) {
+                    const cardsData = combineCardsData(SpecialsCards, cardData.specials);
+                    setCards(cardsData)
+                }
+                break
             default:
-                break;
+                break
         }
     }, [tab, cardData])
 
@@ -67,10 +81,10 @@ export const EnterData: React.FC = () => {
                 }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Legal</button>
                 <button
                     onClick={() => {
-                        setTab("Special")
-                        logEvent(analytics, "Special")
+                        setTab("Specials")
+                        logEvent(analytics, "Specials")
                     }}
-                    className={`${tab === "Special" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Special</button>
+                    className={`${tab === "Specials" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Special</button>
             </div>
 
             {/* Cards */}

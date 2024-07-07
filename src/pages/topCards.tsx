@@ -6,7 +6,7 @@ import { analytics } from '../firebase';
 import { useCardData } from "../hooks/useCardData";
 import { useEffect, useState } from "react";
 import { combineCardsData, CombinedCard } from "../util/combineCards";
-import { Card as CardType, MarketsCards, PRTeamCards } from "../data/cardData";
+import { Card as CardType, LegalCards, MarketsCards, PRTeamCards, SpecialsCards } from "../data/cardData";
 import useCardDrawer from "../hooks/useCardDrawer";
 import Card from "../components/card";
 
@@ -36,8 +36,10 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
 
             const prteamCards = cardData?.prteam ? combineCardsData(PRTeamCards, cardData.prteam) : [];
             const marketsCards = cardData?.markets ? combineCardsData(MarketsCards, cardData.markets) : [];
+            const legalCards = cardData?.legal ? combineCardsData(LegalCards, cardData.legal) : [];
+            const specialsCards = cardData?.specials ? combineCardsData(SpecialsCards, cardData.specials) : [];
 
-            tempCards.push(...prteamCards, ...marketsCards);
+            tempCards.push(...prteamCards, ...marketsCards, ...legalCards, ...specialsCards);
 
             // Type guard to check if a card is a CombinedCard
             const isCombinedCard = (card: CardType | CombinedCard): card is CombinedCard => {
