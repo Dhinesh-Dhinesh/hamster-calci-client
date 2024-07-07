@@ -8,6 +8,7 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 import hamsterLogo from "./assets/hamster-kombat-coin.png"
 import { TopCards } from './pages/topCards';
 import { EnterData } from './pages/enterData';
+import QRcode from "./assets/qrcode.svg"
 
 // Firebase
 import { logEvent } from 'firebase/analytics';
@@ -23,6 +24,7 @@ interface User {
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +47,8 @@ const App: React.FC = () => {
         });
       }
     }
+
+    setLoading(false)
   }, []);
 
   // Analytics page_view key
@@ -72,7 +76,13 @@ const App: React.FC = () => {
     console.log(pathName);
   }, [location]);
 
-  // if (!user) return;
+  if (!user && !loading) return (
+    <div className='font-bold text-white flex justify-center items-center h-[100vh] flex-col bg-black'>
+      <p className='text-lg'>Open on your mobile</p>
+      <img alt="telegram qrcode" src={QRcode} className='bg-white border-2 border-blue-600 m-14 rounded-3xl w-[20rem] h-[20rem]' />
+      <p className='text-lg'>@trick_hamster_bot/trickhamster</p>
+    </div>
+  )
 
   return (
     <div className='flex flex-col'>

@@ -60,27 +60,39 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         const cardType = cleanString(data.type)
 
-        updateCard("1MZVle2lDZ8s2w0FUysv", cardType, {
-            id: toUpdata.id,
-            pph: toUpdata.pph as number,
-            price: toUpdata.price as number
-        }).then(() => {
-            //* Analytics
-            logEvent(analytics, "card_update", {
-                cardName: data.name
-            })
+        // Check if Telegram Web App is available
+        if (window.Telegram?.WebApp) {
+            const tg = window.Telegram.WebApp;
 
-            // refetch cards data then change loading state & close drawer
-            refetchCards()
-            setLoading(false);
-            closeDrawer();
-        }).catch(err => {
-            //* Analytics
-            logEvent(analytics, "error", {
-                function: "Update Card",
-                message: err,
-            })
-        })
+            // Get the user details
+            const userData = tg.initDataUnsafe?.user;
+
+            if (userData) {
+                updateCard(userData.id.toString(), cardType, {
+                    id: toUpdata.id,
+                    pph: toUpdata.pph as number,
+                    price: toUpdata.price as number
+                }).then(() => {
+                    //* Analytics
+                    logEvent(analytics, "card_update", {
+                        cardName: data.name
+                    })
+
+                    // refetch cards data then change loading state & close drawer
+                    refetchCards()
+                    setLoading(false);
+                    closeDrawer();
+                }).catch(err => {
+                    //* Analytics
+                    logEvent(analytics, "error", {
+                        function: "Update Card",
+                        message: err,
+                    })
+                })
+            }
+        } else {
+            console.log("This web app is build for telegram")
+        }
     };
 
     // drawer

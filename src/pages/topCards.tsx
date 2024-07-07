@@ -26,7 +26,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
 
     const [cards, setCards] = useState<CombinedCard[] | null>(null);
 
-    const { cardData } = useCardData()
+    const { cardData, cardDataLoading } = useCardData()
     const { openDrawer } = useCardDrawer();
 
     useEffect(() => {
@@ -63,6 +63,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
         <>
             <div className='bg-cardBackground my-1 mx-4 p-1 rounded-lg flex overflow-hidden'>
                 <div className="p-2" onClick={() => {
+                    //* Analytics
                     logEvent(analytics, "button_click", {
                         button_name: "Hamster Glow"
                     })
@@ -80,7 +81,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
             </div>
 
             {/* eslint-disable-next-line */}
-            {cards && cards.length === 0 ? (
+            {!cardDataLoading && (cards?.length === 0 || !cards) ? (
                 <>
                     <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center ">To see the top cards, enter your "Hamster Kombat" game cards ("profit per hour & price") on the enter data page.</div>
                 </>

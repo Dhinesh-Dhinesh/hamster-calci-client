@@ -30,8 +30,8 @@ export const fetchCardData = async (tele_uid: string): Promise<CardData | null> 
 // updata card data
 type ArrayFieldName = keyof CardData;
 
-export const updateCard = async (uid: string, field: ArrayFieldName, updateFields: CardObject): Promise<void> => {
-    const docRef = doc(db, "cards", uid);
+export const updateCard = async (tele_uid: string, field: ArrayFieldName, updateFields: CardObject): Promise<void> => {
+    const docRef = doc(db, "cards", tele_uid);
 
     try {
         const docSnap = await getDoc(docRef);
