@@ -8,6 +8,8 @@ import { convertStringToNumber } from '../util/numberFormat';
 import { updateCard } from '../util/FirestoreService';
 import { cleanString } from '../util/cleanString';
 import { useCardData } from '../hooks/useCardData';
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../firebase';
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
@@ -63,15 +65,32 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
             pph: toUpdata.pph as number,
             price: toUpdata.price as number
         }).then(() => {
-            // refetch cards data then change loading state & close drawer and 
+            //* Analytics
+            logEvent(analytics, "card_update", {
+                cardName: data.name
+            })
+
+            // refetch cards data then change loading state & close drawer
             refetchCards()
             setLoading(false);
             closeDrawer();
+        }).catch(err => {
+            //* Analytics
+            logEvent(analytics, "error", {
+                function: "Update Card",
+                message: err,
+            })
         })
     };
 
     // drawer
     const openDrawer = (data: CombinedCard) => {
+
+        //* Analytics
+        logEvent(analytics, "card_view", {
+            cardName: data.name,
+        })
+
         setData(data)
         setIsDrawerOpen(true)
     }
@@ -126,8 +145,8 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                         </div>
 
                         <form onSubmit={handleSubmit(onSubmit)}>
-                        <p className='text-[#85888e] text-xs mt-1'>Open your card in "Hamster Kombat" & Enter the exact Profit per hour and Price of next level card</p>
-                        <hr className='mt-2 p-1 border-[#464749]' />
+                            <p className='text-[#85888e] text-xs mt-1'>Open your card in "Hamster Kombat" & Enter the exact Profit per hour and Price of next level card</p>
+                            <hr className='mt-2 p-1 border-[#464749]' />
                             <p>Profit per hour:</p>
                             <div className='my-2'>
                                 <input

@@ -66,22 +66,27 @@ export const EnterData: React.FC = () => {
                 <button
                     onClick={() => {
                         setTab("PR&Team")
+                        //* Analytics
                         logEvent(analytics, "PR&Team")
                     }}
                     className={`${tab === "PR&Team" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>PR&Team</button>
                 <button
                     onClick={() => {
                         setTab("Markets")
+                        //* Analytics
                         logEvent(analytics, "Markets")
                     }}
                     className={`${tab === "Markets" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Markets</button>
-                <button onClick={() => {
-                    setTab("Legal")
-                    logEvent(analytics, "Legal")
-                }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Legal</button>
+                <button
+                    onClick={() => {
+                        setTab("Legal")
+                        //* Analytics
+                        logEvent(analytics, "Legal")
+                    }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Legal</button>
                 <button
                     onClick={() => {
                         setTab("Specials")
+                        //* Analytics
                         logEvent(analytics, "Specials")
                     }}
                     className={`${tab === "Specials" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Special</button>
