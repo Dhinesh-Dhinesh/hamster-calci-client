@@ -65,9 +65,11 @@ const App: React.FC = () => {
     // Log screen view for all screens
     switch (pathName) {
       case "/":
+        //* Analytics
         logScreenView("Top cards", "TopCards");
         break;
       case "/enter-data":
+        //* Analytics
         logScreenView("Enter data", "EnterData");
         break;
       default:
