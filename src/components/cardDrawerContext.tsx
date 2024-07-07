@@ -142,7 +142,7 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                                 />
                                 {errors.pph && <p className='text-red-500 text-sm mt-1'>{errors.pph.message}</p>}
                             </div>
-                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,770 if your pph is +1.77K.</p>
+                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,770 if your card pph is +1.77K.</p>
                             <p>Price:</p>
                             <div className='my-2'>
                                 <input
@@ -157,7 +157,7 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                                 />
                                 {errors.price && <p className='text-red-500 text-sm mt-1'>{errors.price.message}</p>}
                             </div>
-                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,154,634 if your price is 1.15M</p>
+                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,154,634 if your card price is 1.15M</p>
                             <div className='my-2'>
                                 <LoadingButton
                                     type='submit'
