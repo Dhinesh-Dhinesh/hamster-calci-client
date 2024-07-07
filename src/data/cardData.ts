@@ -31,6 +31,7 @@ import ComplianceOfficer from "../assets/icons/compliance_officer.png"
 import WelcomeToAmsterdam from "../assets/icons/welcome_to_ams.png"
 import DevHubMumbai from "../assets/icons/development_hub_mumbai.png"
 import DataCenterTokyo from "../assets/icons/data_center_tokyo.png"
+import LeaderBoard from "../assets/icons/leaderboards.png"
 
 // Markets
 
@@ -302,6 +303,12 @@ export const PRTeamCards: Card[] =
             id: 31,
             name: "Data Center Tokyo",
             img: DataCenterTokyo,
+            type: "PR&Team"
+        },
+        {
+            id: 32,
+            name: "Leaderboards",
+            img: LeaderBoard,
             type: "PR&Team"
         }
     ]
