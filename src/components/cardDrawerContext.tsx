@@ -92,11 +92,11 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                 sx={{
                     '& .MuiDrawer-paper': {
                         height: '70%', // Adjust the height as needed
-                        borderTopLeftRadius: '24px',
-                        borderTopRightRadius: '24px',
+                        borderTopLeftRadius: '30px',
+                        borderTopRightRadius: '30px',
                         backgroundColor: "#1b1f24",
-                        border: '4px solid transparent', // Adjust the border width as needed
-                        boxShadow: '0 0 20px rgba(255, 215, 0, 0.8)', // Increase shadow on hover
+                        borderTop: '2px solid rgba(255, 215, 0, 0.8)', // Adjust the border width as needed
+                        boxShadow: '0 0 25px rgba(255, 215, 0, 0.8)', // Increase shadow on hover
                     },
                 }}
             >
@@ -126,6 +126,8 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                         </div>
 
                         <form onSubmit={handleSubmit(onSubmit)}>
+                        <p className='text-[#85888e] text-xs mt-1'>Open your card in "Hamster Kombat" & Enter the exact Profit per hour and Price of next level card</p>
+                        <hr className='mt-2 p-1 border-[#464749]' />
                             <p>Profit per hour:</p>
                             <div className='my-2'>
                                 <input
@@ -156,8 +158,6 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                                 {errors.price && <p className='text-red-500 text-sm mt-1'>{errors.price.message}</p>}
                             </div>
                             <p className='text-[#85888e] text-sm'>Ex: Enter 1,154,634 if your price is 1.15M</p>
-                            <hr className='mt-2 p-1 border-[#464749]' />
-                            <p className='text-[#85888e] text-xs'>Open your card in "Hamster Kombat" & Enter the exact Profit per hour and Price of your card</p>
                             <div className='my-2'>
                                 <LoadingButton
                                     type='submit'

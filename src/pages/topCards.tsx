@@ -90,6 +90,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
                             cards?.map((data, index) => (
                                 <Card
                                     key={index}
+                                    index={index}
                                     id={data.id}
                                     name={data.name}
                                     img={data.img}

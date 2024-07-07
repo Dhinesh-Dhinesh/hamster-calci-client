@@ -3,6 +3,7 @@ import { formatNumber } from '../util/numberFormat';
 import coinImage from "../assets/coin.png"
 
 type CardProps = {
+    index?: number
     id: number;
     name: string;
     img: string;
@@ -14,7 +15,7 @@ type CardProps = {
     type?: "PR&Team" | "Markets" | "Legal" | "Specials"
 }
 
-const MemoizedCard: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onClick, page, type }) => {
+const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, roi, onClick, page, type }) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         if (onClick) {
             onClick(event);
@@ -23,7 +24,7 @@ const MemoizedCard: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onC
 
     // Memoize the JSX content of the card
     const cardContent = useMemo(() => (
-        <div className='bg-cardBackground rounded-lg p-4 text-white text-center'>
+        <div className='bg-cardBackground rounded-3xl p-4 text-white text-center'>
             {/* Image and title */}
             <div className="flex items-center justify-start overflow-hidden">
                 <div
@@ -48,12 +49,15 @@ const MemoizedCard: React.FC<CardProps> = ({ id, name, img, pph, price, roi, onC
                 page === "main" && (
                     <>
                         <hr className='mt-2 border-[#464749]' />
-                        <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e]">{type}</p>
+                        <div className='flex justify-around items-center'>
+                            <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e]">{"#" + ((index ?? 0) + 1)}</p>
+                            <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e]">{type}</p>
+                        </div>
                     </>
                 )
             }
         </div>
-    ), [name, img, pph, price, roi, page, type]);
+    ), [index, name, img, pph, price, roi, page, type]);
 
     return (
         <div className='p-2 flex-1 min-w-[48%] max-w-[48%]' key={id} onClick={handleClick}>
