@@ -16,30 +16,6 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-    position: relative;
-    border-radius: 15px 15px 0 0;
-    /* Rounded top borders */
-    padding-top: 1rem;
-    overflow: hidden;
-}
-
-.container::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 0;
-    right: 0;
-    height: 1rem;
-    /* Height of the golden border */
-    background: linear-gradient(to right, #ffd700, #ff8c00);
-    /* Golden gradient effect */
-    border-radius: 15px 15px 0 0;
-    /* Rounded top borders */
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 140, 0, 0.6);
-    /* Glowing effect */
-}
-
 .glow {
     box-shadow: 0 0 7px 3px rgba(50, 79, 77, 0.75);
     /* Red glow */
@@ -50,3 +26,7 @@
     box-shadow: 0 0 10px 5px rgb(214, 200, 4);
     /* Brighter red glow on hover */
 }
+
+.top-glow {
+    box-shadow: 0 -26px 20px rgba(243, 186, 47, 0.3);
+  }

@@ -673,6 +673,14 @@ video {
   margin-top: 0.5rem;
 }
 
+.mt-\[-\.2rem\] {
+  margin-top: -.2rem;
+}
+
+.mt-\[-\.5rem\] {
+  margin-top: -.5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -813,6 +821,11 @@ video {
   border-radius: 0.5rem;
 }
 
+.rounded-t-\[35px\] {
+  border-top-left-radius: 35px;
+  border-top-right-radius: 35px;
+}
+
 .border {
   border-width: 1px;
 }
@@ -825,9 +838,18 @@ video {
   border-width: 1px;
 }
 
+.border-t-2 {
+  border-top-width: 2px;
+}
+
 .border-\[\#464749\] {
   --tw-border-opacity: 1;
   border-color: rgb(70 71 73 / var(--tw-border-opacity));
+}
+
+.border-\[\#f3ba2f\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(243 186 47 / var(--tw-border-opacity));
 }
 
 .border-blue-600 {
@@ -980,30 +1002,6 @@ video {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-  position: relative;
-  border-radius: 15px 15px 0 0;
-  /* Rounded top borders */
-  padding-top: 1rem;
-  overflow: hidden;
-}
-
-.container::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 0;
-  right: 0;
-  height: 1rem;
-  /* Height of the golden border */
-  background: linear-gradient(to right, #ffd700, #ff8c00);
-  /* Golden gradient effect */
-  border-radius: 15px 15px 0 0;
-  /* Rounded top borders */
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 15px rgba(255, 140, 0, 0.6);
-  /* Glowing effect */
-}
-
 .glow {
   box-shadow: 0 0 7px 3px rgba(50, 79, 77, 0.75);
   /* Red glow */
@@ -1013,6 +1011,10 @@ video {
 .glow:hover {
   box-shadow: 0 0 10px 5px rgb(214, 200, 4);
   /* Brighter red glow on hover */
+}
+
+.top-glow {
+  box-shadow: 0 -26px 20px rgba(243, 186, 47, 0.3);
 }
 
 .hover\:bg-blue-600:hover {

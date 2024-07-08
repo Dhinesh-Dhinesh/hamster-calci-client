@@ -91,7 +91,8 @@ const App: React.FC = () => {
       {/* Title */}
       <div className='text-xl m-1 flex justify-center items-center font-bold'>Hamster Calci <img alt='logo' src={hamsterLogo} className='ml-2 w-[1.5rem] h-[1.5rem]' /></div>
       {/* Page */}
-      <div className='container mb-32'>
+      {/* <div className='container mb-32'> */}
+      <div className="border-[#f3ba2f] border-t-2 rounded-t-[35px] top-glow z-5 py-2 mb-32">
         <Routes>
           <Route path="/" element={<TopCards userData={user} />} />
           <Route path="/enter-data" element={<EnterData />} />
