@@ -1,4 +1,5 @@
 import KombatImage from "../assets/kombat.webp"
+import TelegramIcon from '@mui/icons-material/Telegram';
 
 // Firebase
 import { logEvent } from 'firebase/analytics';
@@ -28,6 +29,10 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
 
     const { cardData, cardDataLoading } = useCardData()
     const { openDrawer } = useCardDrawer();
+
+    const openTelegramChannel = () => {
+        window.open('https://t.me/hamaterkombatcalci', '_blank');
+    };
 
     useEffect(() => {
         const tempCards: (CombinedCard | CardType)[] = [];
@@ -61,7 +66,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
 
     return (
         <>
-            <div className='bg-cardBackground my-1 mx-4 p-1 rounded-lg flex overflow-hidden'>
+            <div className='bg-cardBackground my-1 mx-4 p-1 rounded-lg flex overflow-hidden items-center'>
                 <div className="p-2" onClick={() => {
                     //* Analytics
                     logEvent(analytics, "button_click", {
@@ -72,12 +77,16 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
                 </div>
                 <div className="flex flex-col p-2 m-auto w-full">
                     <p>Hi👋 {userData?.first_name} {userData?.last_name} (CEO)</p>
-                    <p className="text-sm text-[#85888e]">{userData?.username}</p>
+                    <div className="flex items-center mt-2">
+                        <button className="bg-background text-sm text-[#85888e] rounded-lg w-[6rem] h-7 text-center" onClick={openTelegramChannel}><TelegramIcon /> Channel</button>
+                        <p className="ml-2 text-sm text-[#85888e]">{'@' + userData?.username}</p>
+                    </div>
                 </div>
             </div>
             <div className='bg-cardBackground my-2 mx-4 p-2 rounded-lg flex flex-col'>
                 <p>Best Cards To Buy 🪙</p>
                 <p className="text-xs text-[#85888e]">Based on your data, ROI(Return on investment) less is best</p>
+
             </div>
 
             {/* eslint-disable-next-line */}

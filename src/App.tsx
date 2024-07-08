@@ -89,7 +89,7 @@ const App: React.FC = () => {
   return (
     <div className='flex flex-col'>
       {/* Title */}
-      <div className='text-xl m-1 flex justify-center items-center font-bold'>Trick Hamster <img alt='logo' src={hamsterLogo} className='ml-2 w-[1.5rem] h-[1.5rem]' /></div>
+      <div className='text-xl m-1 flex justify-center items-center font-bold'>Hamster Calci <img alt='logo' src={hamsterLogo} className='ml-2 w-[1.5rem] h-[1.5rem]' /></div>
       {/* Page */}
       <div className='container mb-32'>
         <Routes>
