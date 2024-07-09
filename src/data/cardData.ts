@@ -82,6 +82,10 @@ import Vietnam from "../assets/icons/vitenam.png"
 import Turkey from "../assets/icons/turkey.png"
 import Philippines from "../assets/icons/philippines.png"
 
+// Web3
+
+import DEX from "../assets/icons/dex.png"
+
 // Specials
 
 import CX from "../assets/icons/cxhub.png"
@@ -114,7 +118,7 @@ export type Card = {
     id: number,
     name: string,
     img: string,
-    type: "PR&Team" | "Markets" | "Legal" | "Specials"
+    type: "PR&Team" | "Markets" | "Legal" | "Web3" | "Specials"
 }
 
 export const PRTeamCards: Card[] =
@@ -577,7 +581,16 @@ export const LegalCards: Card[] = [
     }
 ]
 
-export const SpecialsCards : Card[] = [
+export const Web3: Card[] = [
+    {
+        id: 1,
+        name: "DEX",
+        img: DEX,
+        type: "Web3"
+    },
+]
+
+export const SpecialsCards: Card[] = [
     {
         id: 1,
         name: "CX Hub Istanbul",

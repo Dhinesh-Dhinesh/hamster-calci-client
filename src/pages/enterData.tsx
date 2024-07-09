@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { PRTeamCards, MarketsCards, LegalCards, SpecialsCards } from "../data/cardData"
+import { PRTeamCards, MarketsCards, LegalCards, SpecialsCards, Web3 } from "../data/cardData"
 import Card from '../components/card';
 import { combineCardsData, CombinedCard } from '../util/combineCards';
 import { useCardData } from '../hooks/useCardData';
@@ -46,6 +46,14 @@ export const EnterData: React.FC = () => {
                     setCards(cardsData)
                 }
                 break
+            case "Web3":
+                setCards(Web3)
+
+                if (cardData?.legal) {
+                    const cardsData = combineCardsData(Web3, cardData.web3);
+                    setCards(cardsData)
+                }
+                break
             case "Specials":
                 setCards(SpecialsCards)
 
@@ -83,6 +91,12 @@ export const EnterData: React.FC = () => {
                         //* Analytics
                         logEvent(analytics, "Legal")
                     }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Legal</button>
+                <button
+                    onClick={() => {
+                        setTab("Web3")
+                        //* Analytics
+                        logEvent(analytics, "Web3")
+                    }} className={`${tab === "Web3" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Web3</button>
                 <button
                     onClick={() => {
                         setTab("Specials")

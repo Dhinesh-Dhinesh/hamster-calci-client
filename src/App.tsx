@@ -47,14 +47,6 @@ const App: React.FC = () => {
           username: userData.username,
           chat_id: userData.id, // Assuming chat_id is same as user id
         });
-      } else {
-        setUser({
-          id: 213132132,
-          first_name: "userData.first_name",
-          last_name: "userData.last_name",
-          username: "userData.username",
-          chat_id: 211331, // Assuming chat_id is same as user id
-        });
       }
     }
 
@@ -92,7 +84,7 @@ const App: React.FC = () => {
     <div className='font-bold text-white flex justify-center items-center h-[100vh] flex-col bg-black'>
       <p className='text-lg'>Open on your mobile</p>
       <img alt="telegram qrcode" src={QRcode} className='bg-white border-2 border-blue-600 m-14 rounded-3xl w-[20rem] h-[20rem]' />
-      <p className='text-lg'>@trick_hamster_bot/trickhamster</p>
+      <p className='text-lg'>@HamstercalciBot</p>
     </div>
   )
 

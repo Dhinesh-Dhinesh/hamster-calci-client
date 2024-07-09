@@ -11,6 +11,7 @@ export type CardData = {
     prteam: CardObject[];
     markets: CardObject[];
     legal: CardObject[];
+    web3: CardObject[];
     specials: CardObject[];
 };
 
