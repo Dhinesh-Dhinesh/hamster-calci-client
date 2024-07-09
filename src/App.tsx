@@ -9,6 +9,8 @@ import hamsterLogo from "./assets/hamster-kombat-coin.png"
 import { TopCards } from './pages/topCards';
 import { EnterData } from './pages/enterData';
 import QRcode from "./assets/qrcode.svg"
+import StyleIcon from '@mui/icons-material/Style';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 // Firebase
 import { logEvent } from 'firebase/analytics';
@@ -44,6 +46,14 @@ const App: React.FC = () => {
           last_name: userData.last_name,
           username: userData.username,
           chat_id: userData.id, // Assuming chat_id is same as user id
+        });
+      } else {
+        setUser({
+          id: 213132132,
+          first_name: "userData.first_name",
+          last_name: "userData.last_name",
+          username: "userData.username",
+          chat_id: 211331, // Assuming chat_id is same as user id
         });
       }
     }
@@ -102,14 +112,14 @@ const App: React.FC = () => {
 
       {/* bottom tab */}
       <div className='bg-cardBackground mx-[1rem] p-1 rounded-2xl flex justify-evenly fixed bottom-0 left-0 right-0 z-50 border-2 border-background'>
-        <button className={`text-sm font-bold h-12 w-1/2 ${location.pathname === "/" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
+        <button className={`text-sm font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/')
         }
-        }>Top Cards</button>
-        <button className={`text-sm font-bold h-12 w-1/2 ${location.pathname === "/enter-data" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
+        }><StyleIcon className='mr-2' fontSize="small" />Top Cards</button>
+        <button className={`text-sm font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/enter-data" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/enter-data')
         }
-        }>Enter Data</button>
+        }><FileCopyIcon className='mr-2' fontSize="small" />Enter Data</button>
       </div>
 
     </div>
