@@ -71,39 +71,19 @@ export const EnterData: React.FC = () => {
         <>
             {/* Top Bar */}
             <div className='bg-cardBackground my-2 mx-4 p-1 rounded-lg flex justify-evenly'>
-                <button
-                    onClick={() => {
-                        setTab("PR&Team")
-                        //* Analytics
-                        logEvent(analytics, "PR&Team")
-                    }}
-                    className={`${tab === "PR&Team" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>PR&Team</button>
-                <button
-                    onClick={() => {
-                        setTab("Markets")
-                        //* Analytics
-                        logEvent(analytics, "Markets")
-                    }}
-                    className={`${tab === "Markets" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Markets</button>
-                <button
-                    onClick={() => {
-                        setTab("Legal")
-                        //* Analytics
-                        logEvent(analytics, "Legal")
-                    }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Legal</button>
-                <button
-                    onClick={() => {
-                        setTab("Web3")
-                        //* Analytics
-                        logEvent(analytics, "Web3")
-                    }} className={`${tab === "Web3" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Web3</button>
-                <button
-                    onClick={() => {
-                        setTab("Specials")
-                        //* Analytics
-                        logEvent(analytics, "Specials")
-                    }}
-                    className={`${tab === "Specials" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Special</button>
+                {["PR&Team", "Markets", "Legal", "Web3", "Specials"].map((tabName) => (
+                    <button
+                        key={tabName}
+                        onClick={() => {
+                            setTab(tabName);
+                            //* Analytics
+                            logEvent(analytics, tabName);
+                        }}
+                        className={`${tab === tabName ? "bg-background rounded-lg" : ""}
+                         text-xs sm:text-sm h-10 w-1/5 text-center font-bold`}>
+                        {tabName}
+                    </button>
+                ))}
             </div>
 
             {/* Cards */}
