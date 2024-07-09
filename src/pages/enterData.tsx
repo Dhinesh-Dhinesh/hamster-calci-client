@@ -49,7 +49,7 @@ export const EnterData: React.FC = () => {
             case "Web3":
                 setCards(Web3)
 
-                if (cardData?.legal) {
+                if (cardData?.web3) {
                     const cardsData = combineCardsData(Web3, cardData.web3);
                     setCards(cardsData)
                 }
@@ -77,33 +77,33 @@ export const EnterData: React.FC = () => {
                         //* Analytics
                         logEvent(analytics, "PR&Team")
                     }}
-                    className={`${tab === "PR&Team" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>PR&Team</button>
+                    className={`${tab === "PR&Team" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>PR&Team</button>
                 <button
                     onClick={() => {
                         setTab("Markets")
                         //* Analytics
                         logEvent(analytics, "Markets")
                     }}
-                    className={`${tab === "Markets" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Markets</button>
+                    className={`${tab === "Markets" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Markets</button>
                 <button
                     onClick={() => {
                         setTab("Legal")
                         //* Analytics
                         logEvent(analytics, "Legal")
-                    }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Legal</button>
+                    }} className={`${tab === "Legal" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Legal</button>
                 <button
                     onClick={() => {
                         setTab("Web3")
                         //* Analytics
                         logEvent(analytics, "Web3")
-                    }} className={`${tab === "Web3" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Web3</button>
+                    }} className={`${tab === "Web3" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Web3</button>
                 <button
                     onClick={() => {
                         setTab("Specials")
                         //* Analytics
                         logEvent(analytics, "Specials")
                     }}
-                    className={`${tab === "Specials" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/4`}>Special</button>
+                    className={`${tab === "Specials" && "bg-background rounded-lg"} text-sm font-bold h-10 w-1/5`}>Special</button>
             </div>
 
             {/* Cards */}
