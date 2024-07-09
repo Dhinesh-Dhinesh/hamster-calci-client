@@ -31,7 +31,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
     const { openDrawer } = useCardDrawer();
 
     const openTelegramChannel = () => {
-        window.open('https://t.me/hamaterkombatcalci', '_blank');
+        window.open('https://t.me/hamstercalci', '_blank');
     };
 
     useEffect(() => {
@@ -79,7 +79,7 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
                     <p>Hi👋 {userData?.first_name} {userData?.last_name} (CEO)</p>
                     <div className="flex items-center mt-2">
                         <button className="bg-background text-sm text-[#85888e] rounded-lg w-[6rem] h-7 text-center" onClick={openTelegramChannel}><TelegramIcon /> Channel</button>
-                        <p className="ml-2 text-xs text-[#85888e]">{'@' + userData?.username}</p>
+                        {userData?.username && <p className="ml-2 text-xs text-[#85888e]">{'@' + userData.username}</p>}
                     </div>
                 </div>
             </div>

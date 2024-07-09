@@ -89,7 +89,7 @@ const App: React.FC = () => {
   return (
     <div className='flex flex-col'>
       {/* Title */}
-      <div className='text-xl m-1 flex justify-center items-center font-bold'>Hamster Calci <img alt='logo' src={hamsterLogo} className='ml-2 w-[1.5rem] h-[1.5rem]' /></div>
+      <div className='text-xl m-1 flex justify-center items-center font-bold z-40'>Hamster Calci <img alt='logo' src={hamsterLogo} className='ml-2 w-[1.5rem] h-[1.5rem]' /></div>
       {/* Page */}
       {/* <div className='container mb-32'> */}
       <div className="border-[#f3ba2f] border-t-2 rounded-t-[35px] top-glow z-5 py-2 mb-32">
@@ -101,7 +101,7 @@ const App: React.FC = () => {
       </div>
 
       {/* bottom tab */}
-      <div className='bg-cardBackground mx-[1rem] p-1 rounded-2xl flex justify-evenly fixed bottom-0 left-0 right-0 z-50'>
+      <div className='bg-cardBackground mx-[1rem] p-1 rounded-2xl flex justify-evenly fixed bottom-0 left-0 right-0 z-50 border-2 border-background'>
         <button className={`text-sm font-bold h-12 w-1/2 ${location.pathname === "/" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/')
         }

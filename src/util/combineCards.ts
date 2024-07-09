@@ -12,7 +12,7 @@ export type CombinedCard = ClientCard & Partial<FirebaseData> & { roi?: number }
 
 export function combineCardsData(clientCards: ClientCard[], firebaseData: FirebaseData[] | null): CombinedCard[] | ClientCard[] {
 
-    // If data not available in playstore return client cards
+    // If data not available in firestore return client cards
     if (firebaseData === null) return clientCards;
 
     const firebaseDataMap = new Map(firebaseData.map(item => [item.id, item]));
