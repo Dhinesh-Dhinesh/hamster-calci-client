@@ -12,7 +12,7 @@ type CardProps = {
     roi?: number | null;
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
     page?: "main"
-    type?: "PR&Team" | "Markets" | "Legal" | "Specials"
+    type?: "PR&Team" | "Markets" | "Legal" | "Web3" | "Specials"
 }
 
 const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, roi, onClick, page, type }) => {
