@@ -85,6 +85,7 @@ import Philippines from "../assets/icons/philippines.png"
 // Web3
 
 import DEX from "../assets/icons/dex.png"
+import Oracle from "../assets/icons/oracle.png"
 
 // Specials
 
@@ -588,6 +589,12 @@ export const Web3: Card[] = [
         img: DEX,
         type: "Web3"
     },
+    {
+        id: 2,
+        name: "Oracle",
+        img: Oracle,
+        type: "Web3"
+    }
 ]
 
 export const SpecialsCards: Card[] = [
