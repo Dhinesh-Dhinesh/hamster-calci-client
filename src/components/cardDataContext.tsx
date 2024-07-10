@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { fetchCardData, CardData } from '../util/FirestoreService';
+import useUser from '../hooks/useUser';
 
 export type CardDataContextType = {
     cardData: CardData | null;
@@ -14,26 +15,19 @@ const CardDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [cardData, setCardData] = useState<CardData | null>(null);
     const [cardDataLoading, setCardDataLoading] = useState<boolean>(true)
 
-    const getData = async () => {
+    const { user } = useUser();
 
-        // Check if Telegram Web App is available
-        if (window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp;
-
-            // Get the user details
-            const userData = tg.initDataUnsafe?.user;
-
-            if (userData) {
-                const data = await fetchCardData(userData.id.toString()); //^ Testing ID
-                console.log(data)
-                setCardData(data);
-            }
+    const getData = useCallback(async () => {
+        if (user) {
+            const data = await fetchCardData(user.id.toString()); // Assuming fetchCardData is a function that fetches the card data
+            console.log(data);
+            setCardData(data);
         } else {
-            console.log("This web app is build for telegram")
+            console.log("This web app is built for Telegram");
         }
 
-        setCardDataLoading(false)
-    };
+        setCardDataLoading(false);
+    }, [user]);
 
     const refetchCards = async () => {
         await getData();
@@ -41,7 +35,7 @@ const CardDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [getData]);
 
     return (
         <CardDataContext.Provider value={{ cardData, setCardData, refetchCards, cardDataLoading }}>

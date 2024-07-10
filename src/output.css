@@ -693,6 +693,10 @@ video {
   height: 3.5rem;
 }
 
+.h-3 {
+  height: 0.75rem;
+}
+
 .h-7 {
   height: 1.75rem;
 }
@@ -791,6 +795,10 @@ video {
 
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .justify-evenly {
@@ -969,6 +977,11 @@ video {
 .text-\[\#85888e\] {
   --tw-text-opacity: 1;
   color: rgb(133 136 142 / var(--tw-text-opacity));
+}
+
+.text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .text-red-500 {

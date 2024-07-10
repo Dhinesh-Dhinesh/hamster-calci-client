@@ -10,29 +10,24 @@ import { combineCardsData, CombinedCard } from "../util/combineCards";
 import { Card as CardType, LegalCards, MarketsCards, PRTeamCards, SpecialsCards, Web3 } from "../data/cardData";
 import useCardDrawer from "../hooks/useCardDrawer";
 import Card from "../components/card";
+import useUser from "../hooks/useUser";
+import InfoIcon from '@mui/icons-material/Info';
 
-interface User {
-    id: number;
-    first_name: string;
-    last_name: string;
-    username: string;
-    chat_id: number;
-}
-
-interface TopCardsProps {
-    userData: User | null;
-}
-
-export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
+export const TopCards: React.FC = () => {
 
     const [cards, setCards] = useState<CombinedCard[] | null>(null);
 
+    const { user } = useUser();
     const { cardData, cardDataLoading } = useCardData()
     const { openDrawer } = useCardDrawer();
 
     const openTelegramChannel = () => {
         window.open('https://t.me/hamstercalci', '_blank');
     };
+
+    const openHowToUse = () => {
+        window.open('https://t.me/hamstercalci/6', '_blank');
+    }
 
     useEffect(() => {
         const tempCards: (CombinedCard | CardType)[] = [];
@@ -77,23 +72,39 @@ export const TopCards: React.FC<TopCardsProps> = ({ userData }) => {
                     <img src={KombatImage} alt="kombat" width={80} height={80} className="border-[1px] border-yellow-500 glow rounded-full" />
                 </div>
                 <div className="flex flex-col p-2 m-auto w-full">
-                    <p>Hi👋 {userData?.first_name} {userData?.last_name} (CEO)</p>
+                    <p>Hi👋 {user?.first_name} {user?.last_name} (CEO)</p>
                     <div className="flex items-center mt-2">
                         <button className="bg-background text-sm text-[#85888e] rounded-lg w-[6rem] h-7 text-center" onClick={openTelegramChannel}><TelegramIcon /> Channel</button>
-                        {userData?.username && <p className="ml-2 text-xs text-[#85888e]">{'@' + userData.username}</p>}
+                        {user?.username && <p className="ml-2 text-xs text-[#85888e]">{'@' + user.username}</p>}
                     </div>
                 </div>
             </div>
             <div className='bg-cardBackground my-2 mx-4 p-2 rounded-lg flex flex-col'>
-                <p>Best Cards To Buy 🪙</p>
-                <p className="text-xs text-[#85888e]">Based on your data, ROI(Return on investment) less is best</p>
-
+                <div className="flex justify-between">
+                    <p>Best Cards To Buy 🪙</p>
+                    {/* How to use link */}
+                    <div className="text-xs flex items-center text-[#85888e]" onClick={openHowToUse}>
+                        <p>How to use</p>
+                        <InfoIcon sx={{ fontSize: "15px", marginLeft: "4px", marginTop: "2px" }} />
+                    </div>
+                </div>
+                <p className="text-xs text-[#85888e]">Based on your data,</p>
+                <p className="text-xs text-[#85888e]">ROI : Payback days less is best</p>
             </div>
 
             {/* eslint-disable-next-line */}
             {!cardDataLoading && (cards?.length === 0 || !cards) ? (
                 <>
-                    <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center ">To see the top cards, enter your "Hamster Kombat" game cards ("profit per hour & price") on the enter data page.</div>
+                    {/* Instruction message */}
+                    <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center">
+                        To see the top cards, enter your "🐹 Hamster Kombat" game cards ("profit per hour & price") on the enter data page.
+                    </div>
+
+                    {/* How to use link */}
+                    <div className="my-1 mx-4 text-sm flex text-center items-center justify-center text-gray-400" onClick={openHowToUse}>
+                        <p>How to use</p>
+                        <InfoIcon sx={{ fontSize: "16px", marginLeft: "4px" }} />
+                    </div>
                 </>
             ) : (
                 <>

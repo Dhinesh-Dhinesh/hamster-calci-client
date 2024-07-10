@@ -10,6 +10,7 @@ import { cleanString } from '../util/cleanString';
 import { useCardData } from '../hooks/useCardData';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
+import useUser from '../hooks/useUser';
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
@@ -29,6 +30,7 @@ const CardDrawerContext = createContext<CardDrawerContextType | undefined>(undef
 const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const { refetchCards } = useCardData();
+    const { user } = useUser();
 
     //Submit loading
     const [loading, setLoading] = useState(false);
@@ -60,36 +62,30 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         const cardType = cleanString(data.type)
 
-        // Check if Telegram Web App is available
-        if (window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp;
+        // Check user is available
 
-            // Get the user details
-            const userData = tg.initDataUnsafe?.user;
-
-            if (userData) {
-                updateCard(userData.id.toString(), cardType, {
-                    id: toUpdata.id,
-                    pph: toUpdata.pph as number,
-                    price: toUpdata.price as number
-                }).then(() => {
-                    //* Analytics
-                    logEvent(analytics, "card_update", {
-                        cardName: data.name
-                    })
-
-                    // refetch cards data then change loading state & close drawer
-                    refetchCards()
-                    setLoading(false);
-                    closeDrawer();
-                }).catch(err => {
-                    //* Analytics
-                    logEvent(analytics, "error", {
-                        function: "Update Card",
-                        message: err,
-                    })
+        if (user) {
+            updateCard(user.id.toString(), cardType, {
+                id: toUpdata.id,
+                pph: toUpdata.pph as number,
+                price: toUpdata.price as number
+            }).then(() => {
+                //* Analytics
+                logEvent(analytics, "card_update", {
+                    cardName: data.name
                 })
-            }
+
+                // refetch cards data then change loading state & close drawer
+                refetchCards()
+                setLoading(false);
+                closeDrawer();
+            }).catch(err => {
+                //* Analytics
+                logEvent(analytics, "error", {
+                    function: "Update Card",
+                    message: err,
+                })
+            })
         } else {
             console.log("This web app is build for telegram")
         }

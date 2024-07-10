@@ -1,6 +1,5 @@
-// src/App.tsx
-import React, { useState, useEffect } from 'react';
-// import UserDetails from './userDetails';
+import React, { useEffect } from 'react';
+import useUser from './hooks/useUser';
 
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 
@@ -16,68 +15,37 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from './firebase';
 
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-  chat_id: number;
-}
+type ScreenViews = {
+  [key: string]: { screenName: string; screenClass: string };
+};
+
+
+const screenViews: ScreenViews = {
+  '/': { screenName: 'Top cards', screenClass: 'TopCards' },
+  '/enter-data': { screenName: 'Enter data', screenClass: 'EnterData' },
+};
 
 const App: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+
+  const { user, loading } = useUser();
 
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    // Check if Telegram Web App is available
-    if (window.Telegram?.WebApp) {
-      const tg = window.Telegram.WebApp;
-
-      // Get the user details
-      const userData = tg.initDataUnsafe?.user;
-
-      if (userData) {
-        setUser({
-          id: userData.id,
-          first_name: userData.first_name,
-          last_name: userData.last_name,
-          username: userData.username,
-          chat_id: userData.id, // Assuming chat_id is same as user id
-        });
-      }
-    }
-
-    setLoading(false)
-  }, []);
-
   // Analytics page_view key
   useEffect(() => {
-    const pathName: string = location.pathname;
+    const { pathname } = location;
+    const screenView = screenViews[pathname];
 
-    function logScreenView(screenName: string, screenClass: string): void {
-      logEvent(analytics, "screen_view", {
+    if (screenView) {
+      const { screenName, screenClass } = screenView;
+      logEvent(analytics, 'screen_view', {
         firebase_screen: screenName,
         firebase_screen_class: screenClass,
       });
     }
 
-    // Log screen view for all screens
-    switch (pathName) {
-      case "/":
-        //* Analytics
-        logScreenView("Top cards", "TopCards");
-        break;
-      case "/enter-data":
-        //* Analytics
-        logScreenView("Enter data", "EnterData");
-        break;
-      default:
-        break;
-    }
-    console.log(pathName);
+    console.log(pathname);
   }, [location]);
 
   if (!user && !loading) return (
@@ -96,7 +64,7 @@ const App: React.FC = () => {
       {/* <div className='container mb-32'> */}
       <div className="border-[#f3ba2f] border-t-2 rounded-t-[35px] top-glow z-5 py-2 mb-32">
         <Routes>
-          <Route path="/" element={<TopCards userData={user} />} />
+          <Route path="/" element={<TopCards />} />
           <Route path="/enter-data" element={<EnterData />} />
         </Routes>
         {/* container end */}
