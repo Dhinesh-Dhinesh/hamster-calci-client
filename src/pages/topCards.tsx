@@ -17,7 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 
-type SortType = 'paybackdays' | 'masterpph';
+type SortType = 'paybackdays' | 'lowtohigh' | 'hightolow' | 'lowtohighpph' | 'hightolowpph';
 
 export const TopCards: React.FC = () => {
 
@@ -69,10 +69,28 @@ export const TopCards: React.FC = () => {
                 // Sort by ROI
                 sortedCards = filteredCards.sort((a, b) => (a.roi ?? 0) - (b.roi ?? 0));
                 setCards(sortedCards)
-            } else if (sortType === 'masterpph') {
+            } else if (sortType === 'lowtohigh') {
 
                 const sortedCards = filteredCards.sort((a, b) => {
                     return a.price! - b.price! // A and B are equal in terms of ratio
+                });
+                setCards(sortedCards)
+            } else if (sortType === 'hightolow') {
+
+                const sortedCards = filteredCards.sort((a, b) => {
+                    return b.price! - a.price!  // A and B are equal in terms of ratio
+                });
+                setCards(sortedCards)
+            } else if (sortType === 'lowtohighpph') {
+
+                const sortedCards = filteredCards.sort((a, b) => {
+                    return a.pph! - b.pph! // A and B are equal in terms of ratio
+                });
+                setCards(sortedCards)
+            } else if (sortType === 'hightolowpph') {
+
+                const sortedCards = filteredCards.sort((a, b) => {
+                    return b.pph! - a.pph!  // A and B are equal in terms of ratio
                 });
                 setCards(sortedCards)
             }
@@ -154,7 +172,10 @@ export const TopCards: React.FC = () => {
                         }}
                     >
                         <MenuItem value={"paybackdays"}>Payback Days</MenuItem>
-                        <MenuItem value={"masterpph"}>Master PPH</MenuItem>
+                        <MenuItem value={"lowtohighpph"}>PPH: Low - High</MenuItem>
+                        <MenuItem value={"hightolowpph"}>PPH: High - Low</MenuItem>
+                        <MenuItem value={"lowtohigh"}>Price: Low - High</MenuItem>
+                        <MenuItem value={"hightolow"}>Price: High - Low</MenuItem>
                     </Select>
                 </FormControl>
             </div>
