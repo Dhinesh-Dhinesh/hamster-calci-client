@@ -189,6 +189,7 @@ export const TopCards: React.FC = () => {
                                     price={data?.price}
                                     page="main"
                                     type={data?.type}
+                                    sortby={sortType}
                                     onClick={() => {
                                         openDrawer(data)
                                     }} />

@@ -13,9 +13,10 @@ type CardProps = {
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
     page?: "main"
     type?: "PR&Team" | "Markets" | "Legal" | "Web3" | "Specials"
+    sortby?: 'paybackdays' | 'masterpph';
 }
 
-const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, roi, onClick, page, type }) => {
+const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, roi, onClick, page, type, sortby }) => {
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         if (onClick) {
             onClick(event);
@@ -42,22 +43,26 @@ const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, r
                 <img alt='logo' src={coinImage} className='mx-[.2rem] w-[1rem] h-[1rem]' />
                 <span className='text-white font-bold'>{price ? formatNumber(price) : 0}</span>
             </div>
-            <div className="text-[.6rem] font-semibold text-left text-[#85888e]">
-                ROI: <span className='text-white font-bold'>{roi ? roi + " Days" : " - "}</span>
-            </div>
+            {
+                sortby === 'paybackdays' && (
+                    <div className="text-[.6rem] font-semibold text-left text-[#85888e]">
+                        ROI: <span className='text-white font-bold'>{roi ? roi + " Days" : " - "}</span>
+                    </div>
+                )
+            }
             {
                 page === "main" && (
                     <>
                         <hr className='mt-2 border-[#464749]' />
                         <div className='flex wrap items-center justify-center'>
-                            <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e] mr-2">{"#" + ((index ?? 0) + 1)}</p>
+                            <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e] mr-2">Rank : {"#" + ((index ?? 0) + 1)}</p>
                             <p className="text-[.6rem] mt-1 font-semibold text-left text-[#85888e] w-12 ml-9">{type}</p>
                         </div>
                     </>
                 )
             }
         </div>
-    ), [index, name, img, pph, price, roi, page, type]);
+    ), [index, name, img, pph, price, roi, page, type, sortby]);
 
     return (
         <div className='p-2 flex-1 min-w-[48%] max-w-[48%]' key={id} onClick={handleClick}>
