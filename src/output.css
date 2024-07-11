@@ -693,10 +693,6 @@ video {
   height: 3.5rem;
 }
 
-.h-3 {
-  height: 0.75rem;
-}
-
 .h-7 {
   height: 1.75rem;
 }
@@ -896,6 +892,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-\[\#272a2e\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 42 46 / var(--tw-bg-opacity));
+}
+
 .bg-contain {
   background-size: contain;
 }
@@ -992,6 +993,11 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.text-background {
+  --tw-text-opacity: 1;
+  color: rgb(27 31 36 / var(--tw-text-opacity));
 }
 
 .shadow {

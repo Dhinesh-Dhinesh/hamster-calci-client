@@ -11,6 +11,7 @@ interface User {
 interface UserContextProps {
     user: User | null;
     loading: boolean;
+    activeUsers: number;
 }
 
 const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -22,6 +23,7 @@ interface UserProviderProps {
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+    const [activeUsers, setActiveUsers] = useState<number>(0);
 
     useEffect(() => {
         if (window.Telegram?.WebApp) {
@@ -49,11 +51,17 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
             // }
         }
 
+        const getRandomActiveUserLevel = (min = 10, max = 150) => {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        setActiveUsers(getRandomActiveUserLevel())
+
         setLoading(false);
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, loading }}>
+        <UserContext.Provider value={{ user, loading, activeUsers }}>
             {children}
         </UserContext.Provider>
     );

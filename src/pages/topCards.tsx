@@ -12,12 +12,19 @@ import useCardDrawer from "../hooks/useCardDrawer";
 import Card from "../components/card";
 import useUser from "../hooks/useUser";
 import InfoIcon from '@mui/icons-material/Info';
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import SwapVertIcon from '@mui/icons-material/SwapVert';
+
+type SortType = 'paybackdays' | 'masterpph';
 
 export const TopCards: React.FC = () => {
 
     const [cards, setCards] = useState<CombinedCard[] | null>(null);
+    const [sortType, setSortType] = useState<SortType>('paybackdays');
 
-    const { user } = useUser();
+    const { user, activeUsers } = useUser();
     const { cardData, cardDataLoading } = useCardData()
     const { openDrawer } = useCardDrawer();
 
@@ -28,6 +35,10 @@ export const TopCards: React.FC = () => {
     const openHowToUse = () => {
         window.open('https://t.me/hamstercalci/6', '_blank');
     }
+
+    const handleSortChange = (event: SelectChangeEvent) => {
+        setSortType(event.target.value as SortType);
+    };
 
     useEffect(() => {
         const tempCards: (CombinedCard | CardType)[] = [];
@@ -44,21 +55,29 @@ export const TopCards: React.FC = () => {
 
             // Type guard to check if a card is a CombinedCard
             const isCombinedCard = (card: CardType | CombinedCard): card is CombinedCard => {
-                return 'roi' in card;
+                return 'roi' in card && 'pph' in card && 'price' in card;
             };
 
-            // Filter and sort the cards by ROI, handling optional ROI
-            const sortedCards = tempCards
-                .filter(isCombinedCard) // Filter cards that are CombinedCard with ROI
-                .filter(card => card.roi !== undefined && !isNaN(card.roi)) // Exclude cards with ROI NaN or undefined
-                .sort((a, b) => (a.roi ?? 0) - (b.roi ?? 0)); // Sort cards by ROI in ascending order, treating undefined as 0
+            // Filter out non-CombinedCard and cards with invalid ROI
+            const filteredCards = tempCards
+                .filter(isCombinedCard) // Filter cards that are CombinedCard with necessary properties
+                .filter(card => card.roi !== undefined && !isNaN(card.roi)); // Exclude cards with ROI NaN or undefined
 
-            // Do something with sortedCards, like setting state or other processing
-            console.log(sortedCards);
-            setCards(sortedCards)
+            let sortedCards: CombinedCard[];
 
+            if (sortType === 'paybackdays') {
+                // Sort by ROI
+                sortedCards = filteredCards.sort((a, b) => (a.roi ?? 0) - (b.roi ?? 0));
+                setCards(sortedCards)
+            } else if (sortType === 'masterpph') {
+
+                const sortedCards = filteredCards.sort((a, b) => {
+                    return a.price! - b.price! // A and B are equal in terms of ratio
+                });
+                setCards(sortedCards)
+            }
         }
-    }, [cardData]);
+    }, [cardData, sortType]);
 
     return (
         <>
@@ -82,17 +101,64 @@ export const TopCards: React.FC = () => {
             <div className='bg-cardBackground my-2 mx-4 p-2 rounded-lg flex flex-col'>
                 <div className="flex justify-between">
                     <p>Best Cards To Buy 🪙</p>
+                    <p className="text-xs text-[#85888e]">Active users: {activeUsers}</p>
+                </div>
+                <div className="flex justify-between text-center">
+                    <p className="text-xs text-[#85888e]">Based on your data</p>
                     {/* How to use link */}
                     <div className="text-xs flex items-center text-[#85888e]" onClick={openHowToUse}>
                         <p>How to use</p>
                         <InfoIcon sx={{ fontSize: "15px", marginLeft: "4px", marginTop: "2px" }} />
                     </div>
                 </div>
-                <p className="text-xs text-[#85888e]">Based on your data,</p>
-                <p className="text-xs text-[#85888e]">ROI : Payback days less is best</p>
             </div>
 
-            {/* eslint-disable-next-line */}
+            {/* Sorting */}
+
+            <div className='bg-cardBackground text-[#85888e] my-2 mx-4 p-2 rounded-lg flex items-center justify-between'>
+                <p>Sort by <SwapVertIcon /></p>
+                <FormControl>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={sortType}
+                        onChange={handleSortChange}
+                        size="small"
+                        sx={{
+                            color: '#85888e',
+                            bgcolor: '#272a2e',
+                            fontSize: '0.875rem',
+                            '& .MuiSelect-select': {
+                                bgcolor: '#272a2e',
+                            },
+                            '& .MuiSvgIcon-root': {
+                                color: '#e5e7eb',
+                            },
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#85888e',
+                            },
+                        }}
+                        MenuProps={{
+                            PaperProps: {
+                                sx: {
+                                    bgcolor: '#272a2e',
+                                    '& .MuiMenuItem-root': {
+                                        fontSize: '0.875rem',
+                                        color: '#85888e',
+                                        '&:hover': {
+                                            bgcolor: '#33373b',
+                                        },
+                                    },
+                                },
+                            },
+                        }}
+                    >
+                        <MenuItem value={"paybackdays"}>Payback Days</MenuItem>
+                        <MenuItem value={"masterpph"}>Master PPH</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+
             {!cardDataLoading && (cards?.length === 0 || !cards) ? (
                 <>
                     {/* Instruction message */}
