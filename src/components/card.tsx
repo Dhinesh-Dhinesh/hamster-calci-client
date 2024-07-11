@@ -55,7 +55,7 @@ const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, r
                     <>
                         <hr className='mt-2 border-[#464749]' />
                         <div className='flex wrap items-center justify-center'>
-                            <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e] mr-2">Rank : {"#" + ((index ?? 0) + 1)}</p>
+                            <p className="text-[.6rem] mt-1 font-semibold text-center text-[#85888e] mr-2">{"#" + ((index ?? 0) + 1)}</p>
                             <p className="text-[.6rem] mt-1 font-semibold text-left text-[#85888e] w-12 ml-9">{type}</p>
                         </div>
                     </>
