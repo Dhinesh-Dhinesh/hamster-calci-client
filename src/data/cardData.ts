@@ -87,6 +87,7 @@ import Philippines from "../assets/icons/philippines.png"
 import DEX from "../assets/icons/dex.png"
 import Oracle from "../assets/icons/oracle.png"
 import Vesting from "../assets/icons/vesting.png"
+import Launchpad from "../assets/icons/launchpad.png"
 
 // Specials
 
@@ -600,6 +601,11 @@ export const Web3: Card[] = [
         id: 3,
         name: "Vesting Smartcontracts",
         img: Vesting,
+        type: "Web3"
+    },{
+        id:4,
+        name: "Launchpad",
+        img: Launchpad,
         type: "Web3"
     }
 ]
