@@ -95,9 +95,12 @@ export const EnterData: React.FC = () => {
                             id={data.id}
                             name={data.name}
                             img={data.img}
-                            roi={data?.roi}
+                            initialPrice={data.initialPrice}
+                            initialPph={data.initialPph}
+                            level={data.level}
                             pph={data?.pph}
                             price={data?.price}
+                            roi={data?.roi}
                             onClick={() => {
                                 openDrawer(data)
                             }} />

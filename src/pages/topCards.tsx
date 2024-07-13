@@ -184,7 +184,7 @@ export const TopCards: React.FC = () => {
                 <>
                     {/* Instruction message */}
                     <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center">
-                        To see the top cards, enter your "🐹 Hamster Kombat" game cards ("profit per hour & price") on the enter data page.
+                        To see the top cards, enter your "🐹 Hamster Kombat" game cards ("Level") on the enter data page.
                     </div>
 
                     {/* How to use link */}
@@ -208,6 +208,9 @@ export const TopCards: React.FC = () => {
                                     roi={data?.roi}
                                     pph={data?.pph}
                                     price={data?.price}
+                                    initialPph={data.initialPph}
+                                    initialPrice={data.initialPrice}
+                                    level={data.level}
                                     page="main"
                                     type={data?.type}
                                     onClick={() => {

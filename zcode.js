@@ -73,3 +73,44 @@ console.table(priceByLevel);
 // const { pph, price, cardLevel } = calculateCardGrowth(initialPph, initialPrice, level);
 
 // console.log(pph, price, cardLevel)
+
+
+
+
+
+
+
+
+// update function minificaion
+
+// export const updateCard = async (tele_uid: string, field: ArrayFieldName, updateFields: CardObject): Promise<void> => {
+//   const docRef = doc(db, "cards", tele_uid);
+
+//   try {
+//       const docSnap = await getDoc(docRef);
+//       let cardData: CardData = { [field]: [] };
+
+//       if (docSnap.exists()) {
+//           cardData = docSnap.data() as CardData;
+//           if (!Array.isArray(cardData[field])) {
+//               cardData[field] = [];
+//           }
+
+//           const index = cardData[field].findIndex(item => item.id === updateFields.id);
+//           if (index !== -1) {
+//               cardData[field][index] = { ...cardData[field][index], ...updateFields };
+//           } else {
+//               cardData[field].push(updateFields);
+//           }
+
+//           await updateDoc(docRef, { [field]: cardData[field] });
+//       } else {
+//           cardData[field].push(updateFields);
+//           await setDoc(docRef, cardData);
+//           console.log("New document created");
+//       }
+//   } catch (error) {
+//       console.error("Error updating document:", error);
+//       throw error;
+//   }
+// };

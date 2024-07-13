@@ -87,6 +87,8 @@ import Philippines from "../assets/icons/philippines.png"
 import DEX from "../assets/icons/dex.png"
 import Oracle from "../assets/icons/oracle.png"
 import Vesting from "../assets/icons/vesting.png"
+import LaunchPad from "../assets/icons/launchpad.png"
+import NFTMarketplace from "../assets/icons/nft_marketplace.png"
 
 // Specials
 
@@ -758,6 +760,22 @@ export const Web3: Card[] = [
         type: "Web3",
         initialPph: 1200,
         initialPrice: 41000
+    },
+    {
+        id: 4,
+        name: "Launchpad",
+        img: LaunchPad,
+        type: "Web3",
+        initialPph: 3000,
+        initialPrice: 95000
+    },
+    {
+        id: 5,
+        name: "NFT Marketplace",
+        img: NFTMarketplace,
+        type: "Web3",
+        initialPph: 2000,
+        initialPrice: 78000
     }
 ]
 
