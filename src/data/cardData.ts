@@ -794,7 +794,7 @@ export const SpecialsCards: Card[] = [
         img: HamsterBreaks,
         type: "Specials",
         initialPph: 2750,
-        initialPrice: 50000
+        initialPrice: 500000
     },
     {
         id: 3,
