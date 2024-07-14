@@ -33,7 +33,7 @@ export const TopCards: React.FC = () => {
     };
 
     const openHowToUse = () => {
-        window.open('https://t.me/hamstercalci/6', '_blank');
+        window.open('https://t.me/hamstercalcichat/201', '_blank');
     }
 
     const handleSortChange = (event: SelectChangeEvent) => {

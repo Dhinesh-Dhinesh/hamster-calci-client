@@ -116,6 +116,7 @@ import Villa from "../assets/icons/villa.png"
 import AppCenter from "../assets/icons/app_center.png"
 import Bogdanoff from "../assets/icons/bogdanoff.png"
 import USDT from "../assets/icons/usdt.png"
+import BusinessJet from "../assets/icons/business_jet.png"
 
 export type Card = {
     id: number,
@@ -781,6 +782,14 @@ export const Web3: Card[] = [
 
 export const SpecialsCards: Card[] = [
     {
+        id: 25,
+        name: "Business jet",
+        img: BusinessJet,
+        type: "Specials",
+        initialPph: 3000,
+        initialPrice: 12000000
+    },
+    {
         id: 1,
         name: "CX Hub Istanbul",
         img: CX,
@@ -972,4 +981,5 @@ export const SpecialsCards: Card[] = [
         initialPph: 1350,
         initialPrice: 10000
     }
+    // Check card id in top
 ]
