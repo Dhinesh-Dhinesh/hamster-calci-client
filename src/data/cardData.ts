@@ -117,6 +117,7 @@ import AppCenter from "../assets/icons/app_center.png"
 import Bogdanoff from "../assets/icons/bogdanoff.png"
 import USDT from "../assets/icons/usdt.png"
 import BusinessJet from "../assets/icons/business_jet.png"
+import CallForBTC from "../assets/icons/cal_for_btc.png"
 
 export type Card = {
     id: number,
@@ -781,6 +782,14 @@ export const Web3: Card[] = [
 ]
 
 export const SpecialsCards: Card[] = [
+    {
+        id: 26,
+        name: "Call for BTC to rise",
+        img: CallForBTC,
+        type: "Specials",
+        initialPph: 5000,
+        initialPrice: 5000000
+    },
     {
         id: 25,
         name: "Business jet",
