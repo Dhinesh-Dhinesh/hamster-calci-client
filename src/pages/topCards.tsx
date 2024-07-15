@@ -45,11 +45,11 @@ export const TopCards: React.FC = () => {
 
         if (cardData) {
 
-            const prteamCards = cardData?.prteam ? combineCardsData(PRTeamCards, cardData.prteam) : [];
-            const marketsCards = cardData?.markets ? combineCardsData(MarketsCards, cardData.markets) : [];
-            const legalCards = cardData?.legal ? combineCardsData(LegalCards, cardData.legal) : [];
-            const web3 = cardData?.web3 ? combineCardsData(Web3, cardData.web3) : [];
-            const specialsCards = cardData?.specials ? combineCardsData(SpecialsCards, cardData.specials) : [];
+            const prteamCards = combineCardsData(PRTeamCards, cardData.prteam);
+            const marketsCards = combineCardsData(MarketsCards, cardData.markets);
+            const legalCards = combineCardsData(LegalCards, cardData.legal);
+            const web3 = combineCardsData(Web3, cardData.web3);
+            const specialsCards = combineCardsData(SpecialsCards, cardData.specials);
 
             tempCards.push(...prteamCards, ...marketsCards, ...legalCards, ...web3, ...specialsCards);
 

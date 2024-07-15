@@ -61,7 +61,7 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
         // if no data exit or skip
         if (!data) return;
 
-        if ((lvl === 0) || (data?.level == lvl)) return;
+        if (data?.level == lvl) return;
 
         setLoading(true);
 
@@ -114,7 +114,7 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setIsDrawerOpen(false);
 
         // reset the local values
-        setSampleData(initialSampleData);
+        // setSampleData(initialSampleData);
         setLvl(0);
 
     }
@@ -235,7 +235,6 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
                         <div className='my-2' onClick={() => onSubmit()}>
                             <LoadingButton
-                                disabled={lvl === 0 ? true : false}
                                 size='small'
                                 type='submit'
                                 loading={loading}

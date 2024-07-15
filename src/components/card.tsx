@@ -50,7 +50,7 @@ const MemoizedCard: React.FC<CardProps> = ({ index, id, name, img, pph, price, r
             </div>
             <hr className='mt-2 border-[#464749]' />
             <div className="text-[.7rem] text-left text-[#85888e]">
-                Level: <span className='text-white font-bold'>{level ? level : '-'}</span>
+                Level: <span className='text-white font-bold'>{level}</span>
             </div>
             {
                 page === "main" && (
