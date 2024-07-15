@@ -33,7 +33,7 @@ export const TopCards: React.FC = () => {
     };
 
     const openHowToUse = () => {
-        window.open('https://t.me/hamstercalci/6', '_blank');
+        window.open('https://t.me/hamstercalcichat/201', '_blank');
     }
 
     const handleSortChange = (event: SelectChangeEvent) => {
@@ -45,11 +45,11 @@ export const TopCards: React.FC = () => {
 
         if (cardData) {
 
-            const prteamCards = cardData?.prteam ? combineCardsData(PRTeamCards, cardData.prteam) : [];
-            const marketsCards = cardData?.markets ? combineCardsData(MarketsCards, cardData.markets) : [];
-            const legalCards = cardData?.legal ? combineCardsData(LegalCards, cardData.legal) : [];
-            const web3 = cardData?.web3 ? combineCardsData(Web3, cardData.web3) : [];
-            const specialsCards = cardData?.specials ? combineCardsData(SpecialsCards, cardData.specials) : [];
+            const prteamCards = combineCardsData(PRTeamCards, cardData.prteam);
+            const marketsCards = combineCardsData(MarketsCards, cardData.markets);
+            const legalCards = combineCardsData(LegalCards, cardData.legal);
+            const web3 = combineCardsData(Web3, cardData.web3);
+            const specialsCards = combineCardsData(SpecialsCards, cardData.specials);
 
             tempCards.push(...prteamCards, ...marketsCards, ...legalCards, ...web3, ...specialsCards);
 
@@ -184,7 +184,7 @@ export const TopCards: React.FC = () => {
                 <>
                     {/* Instruction message */}
                     <div className="my-2 mx-4 p-2 h-[10rem] text-sm flex text-center items-center">
-                        To see the top cards, enter your "🐹 Hamster Kombat" game cards ("profit per hour & price") on the enter data page.
+                        To see the top cards, enter your "🐹 Hamster Kombat" game cards ("Level") on the enter data page.
                     </div>
 
                     {/* How to use link */}
@@ -208,6 +208,9 @@ export const TopCards: React.FC = () => {
                                     roi={data?.roi}
                                     pph={data?.pph}
                                     price={data?.price}
+                                    initialPph={data.initialPph}
+                                    initialPrice={data.initialPrice}
+                                    level={data.level}
                                     page="main"
                                     type={data?.type}
                                     onClick={() => {

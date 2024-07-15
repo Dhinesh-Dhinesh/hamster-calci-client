@@ -3,8 +3,7 @@ import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 
 export type CardObject = {
     id: number;
-    pph: number;
-    price: number;
+    level: number;
 };
 
 export type CardData = {

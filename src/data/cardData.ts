@@ -87,7 +87,8 @@ import Philippines from "../assets/icons/philippines.png"
 import DEX from "../assets/icons/dex.png"
 import Oracle from "../assets/icons/oracle.png"
 import Vesting from "../assets/icons/vesting.png"
-import Launchpad from "../assets/icons/launchpad.png"
+import LaunchPad from "../assets/icons/launchpad.png"
+import NFTMarketplace from "../assets/icons/nft_marketplace.png"
 
 // Specials
 
@@ -115,13 +116,16 @@ import Villa from "../assets/icons/villa.png"
 import AppCenter from "../assets/icons/app_center.png"
 import Bogdanoff from "../assets/icons/bogdanoff.png"
 import USDT from "../assets/icons/usdt.png"
-import Extra from "../assets/icons/extra.png"
+import BusinessJet from "../assets/icons/business_jet.png"
+import CallForBTC from "../assets/icons/cal_for_btc.png"
 
 export type Card = {
     id: number,
     name: string,
     img: string,
-    type: "PR&Team" | "Markets" | "Legal" | "Web3" | "Specials"
+    type: "PR&Team" | "Markets" | "Legal" | "Web3" | "Specials",
+    initialPph: number,
+    initialPrice: number
 }
 
 export const PRTeamCards: Card[] =
@@ -130,193 +134,257 @@ export const PRTeamCards: Card[] =
             id: 1,
             name: "CEO",
             img: CEO,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 100,
+            initialPrice: 1000
         },
         {
             id: 2,
             name: "Marketing",
             img: Marketing,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 70,
+            initialPrice: 1000
         },
         {
             id: 3,
             name: "IT Team",
             img: IT_Team,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 240,
+            initialPrice: 2000
         },
         {
             id: 4,
             name: "Support Team",
             img: Support_Team,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 70,
+            initialPrice: 750
         },
         {
             id: 5,
             name: "Hamster Book",
             img: HamsterBook,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 70,
+            initialPrice: 500
         },
         {
             id: 6,
             name: "Hamster Tube",
             img: HamsterTube,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 90,
+            initialPrice: 600
         },
         {
             id: 7,
             name: "X",
             img: X,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 80,
+            initialPrice: 550
         },
         {
             id: 8,
             name: "Cointelegraph",
             img: CoinTelegraph,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 40,
+            initialPrice: 350
         },
         {
             id: 9,
             name: "HamsterGram",
             img: HamsterGram,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 50,
+            initialPrice: 500
         },
         {
             id: 10,
             name: "TikTok",
             img: Tiktok,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 100,
+            initialPrice: 750
         },
         {
             id: 11,
             name: "Coindesk",
             img: Coindesk,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 80,
+            initialPrice: 1000
         },
         {
             id: 12,
             name: "Influencers",
             img: Influencers,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 270,
+            initialPrice: 2500
         },
         {
             id: 13,
             name: "Partnership Program",
             img: PartnershipProgram,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 70,
+            initialPrice: 500
         },
         {
             id: 14,
             name: "Product Team",
             img: ProductTeam,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 100,
+            initialPrice: 1000
         },
         {
             id: 15,
             name: "BisDev Team",
             img: BisDev,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 50,
+            initialPrice: 500
         },
         {
             id: 16,
             name: "Two factor authentication",
             img: TwoFactor,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 125,
+            initialPrice: 1000
         },
         {
             id: 17,
             name: "UX and UI team",
             img: UX,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 175,
+            initialPrice: 760
         },
         {
             id: 18,
             name: "Security Team",
             img: SecurityTeam,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 200,
+            initialPrice: 1000
         },
         {
             id: 19,
             name: "QA Team",
             img: QA,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 130,
+            initialPrice: 1275
         },
         {
             id: 20,
             name: "Antihacking shield",
             img: Antihacking,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 110,
+            initialPrice: 2000
         },
         {
             id: 21,
             name: "Risk management team",
             img: RiskManagement,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 265,
+            initialPrice: 2000
         },
         {
             id: 22,
             name: "Security Audition",
             img: SecurityAudition,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 100,
+            initialPrice: 3000
         },
         {
             id: 23,
             name: "Anonymous transaction ban",
             img: Anonymous,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 300,
+            initialPrice: 900
         },
         {
             id: 24,
             name: "Blocking suspicious accounts",
             img: BlockingAcounts,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 160,
+            initialPrice: 1250
         },
         {
             id: 25,
             name: "Tokenomics expert",
             img: Tokenomics,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 500,
+            initialPrice: 5000
         },
         {
             id: 26,
             name: "Consensus Explorer pass",
             img: ConsensusExplorerPass,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 1500,
+            initialPrice: 25000
         },
         {
             id: 27,
             name: "VC Labs",
             img: VCLabs,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 500,
+            initialPrice: 15500
         },
         {
             id: 28,
             name: "Compiance officer",
             img: ComplianceOfficer,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 120,
+            initialPrice: 3500
         },
         {
             id: 29,
             name: "Welcome to Amsterdam",
             img: WelcomeToAmsterdam,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 325,
+            initialPrice: 3000
         },
         {
             id: 30,
             name: "Development Hub Mumbai",
             img: DevHubMumbai,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 4000,
+            initialPrice: 90000
         },
         {
             id: 31,
             name: "Data Center Tokyo",
             img: DataCenterTokyo,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 6500,
+            initialPrice: 200000
         },
         {
             id: 32,
             name: "Leaderboards",
             img: LeaderBoard,
-            type: "PR&Team"
+            type: "PR&Team",
+            initialPph: 750,
+            initialPrice: 20000
         }
     ]
 
@@ -325,139 +393,185 @@ export const MarketsCards: Card[] = [
         id: 1,
         name: "Fan Tokens",
         img: Fantokens,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 950,
+        initialPrice: 10000
     },
     {
         id: 2,
         name: "Staking",
         img: Staking,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 600,
+        initialPrice: 3500
     },
     {
         id: 3,
         name: "BTC pairs",
         img: Btc,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 40,
+        initialPrice: 250
     },
     {
         id: 4,
         name: "ETH pairs",
         img: Eth,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 40,
+        initialPrice: 300
     },
     {
         id: 5,
         name: "Top 10 cmc pairs",
         img: TopTen,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 80,
+        initialPrice: 1000
     },
     {
         id: 6,
         name: "GameFi tokens",
         img: GameFi,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 70,
+        initialPrice: 500
     },
     {
         id: 7,
         name: "Defi2.0 tokens",
         img: Defi,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 40,
+        initialPrice: 500
     },
     {
         id: 8,
         name: "SocialFi tokens",
         img: SocialFi,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 50,
+        initialPrice: 500
     },
     {
         id: 9,
         name: "Meme Coins",
         img: MemeCoin,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 110,
+        initialPrice: 2000
     },
     {
         id: 10,
         name: "Shit coins",
         img: ShitCoin,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 590,
+        initialPrice: 5000
     },
     {
         id: 11,
         name: "Margin trading x10",
         img: TenX,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 275,
+        initialPrice: 2500
     },
     {
         id: 12,
         name: "Margin trading x20",
         img: TwentyX,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 350,
+        initialPrice: 2500
     },
     {
         id: 13,
         name: "Margin trading x30",
         img: ThirtyX,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 500,
+        initialPrice: 3500
     },
     {
         id: 14,
         name: "Margin trading x50",
         img: FiftyX,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 1100,
+        initialPrice: 10000
     },
     {
         id: 15,
         name: "Margin trading x75",
         img: SeventyX,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 1100,
+        initialPrice: 7500
     },
     {
         id: 16,
         name: "Margin trading x100",
         img: HundredX,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 975,
+        initialPrice: 5000
     },
     {
         id: 17,
         name: "Derivatives",
         img: Derivatives,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 495,
+        initialPrice: 2500
     },
     {
         id: 18,
         name: "Prediction markets",
         img: Prediction,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 345,
+        initialPrice: 1750
     },
     {
         id: 19,
         name: "Web3 integration",
         img: WebThree,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 790,
+        initialPrice: 6500
     },
     {
         id: 20,
         name: "DAO",
         img: DAO,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 230,
+        initialPrice: 1000
     },
     {
         id: 21,
         name: "P2P trading",
         img: PtwoP,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 390,
+        initialPrice: 4200
     },
     {
         id: 22,
         name: "Trading bots",
         img: TradingBots,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 195,
+        initialPrice: 2100
     },
     {
         id: 23,
         name: "LayerZero Listing",
         img: LayerZero,
-        type: "Markets"
+        type: "Markets",
+        initialPph: 900,
+        initialPrice: 10000
     }
 ]
 
@@ -466,121 +580,161 @@ export const LegalCards: Card[] = [
         id: 1,
         name: "KYC",
         img: KYC,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 10,
+        initialPrice: 100
     },
     {
         id: 2,
         name: "KYB",
         img: KYB,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 60,
+        initialPrice: 500
     },
     {
         id: 3,
         name: "Legal opinion",
         img: LegalOpinion,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 60,
+        initialPrice: 1000
     },
     {
         id: 4,
         name: "SEC transparancy",
         img: SEC,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 60,
+        initialPrice: 1200
     },
     {
         id: 5,
         name: "Anti money loundering",
         img: AntiMoney,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 280,
+        initialPrice: 3000
     },
     {
         id: 6,
         name: "Licence UAE",
         img: UAE,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 560,
+        initialPrice: 5000
     },
     {
         id: 7,
         name: "Licence Europe",
         img: Europe,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 720,
+        initialPrice: 5000
     },
     {
         id: 8,
         name: "Licence Asia",
         img: Asia,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 370,
+        initialPrice: 5000
     },
     {
         id: 9,
         name: "Licence South America",
         img: South,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 390,
+        initialPrice: 5000
     },
     {
         id: 10,
         name: "Licence Australia",
         img: Australia,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 680,
+        initialPrice: 5000
     },
     {
         id: 11,
         name: "Licence North America",
         img: North,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 960,
+        initialPrice: 10000
     },
     {
         id: 12,
         name: "Licence Nigeria",
         img: Nigeria,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 170,
+        initialPrice: 1500
     },
     {
         id: 13,
         name: "Licence Japan",
         img: Japan,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 2600,
+        initialPrice: 50000
     },
     {
         id: 14,
         name: "Licence Ethiopia",
         img: Ethiopia,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 1800,
+        initialPrice: 35000
     },
     {
         id: 15,
         name: "Licence India",
         img: India,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 2500,
+        initialPrice: 45000
     },
     {
         id: 16,
         name: "Licence Bangladesh",
         img: Bangladesh,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 3500,
+        initialPrice: 70000
     },
     {
         id: 17,
         name: "Licence Indonesia",
         img: Indonesia,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 5000,
+        initialPrice: 100000
     },
     {
         id: 18,
         name: "Licence Vitenam",
         img: Vietnam,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 4000,
+        initialPrice: 85000
     },
     {
         id: 19,
         name: "Licence Turkey",
         img: Turkey,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 3000,
+        initialPrice: 75000
     },
     {
         id: 20,
         name: "Licence Philippines",
         img: Philippines,
-        type: "Legal"
+        type: "Legal",
+        initialPph: 6500,
+        initialPrice: 150000
     }
 ]
 
@@ -589,176 +743,252 @@ export const Web3: Card[] = [
         id: 1,
         name: "DEX",
         img: DEX,
-        type: "Web3"
+        type: "Web3",
+        initialPph: 3000,
+        initialPrice: 75000
     },
     {
         id: 2,
         name: "Oracle",
         img: Oracle,
-        type: "Web3"
+        type: "Web3",
+        initialPph: 800,
+        initialPrice: 17500
     },
     {
         id: 3,
         name: "Vesting Smartcontracts",
         img: Vesting,
-        type: "Web3"
-    },{
-        id:4,
+        type: "Web3",
+        initialPph: 1200,
+        initialPrice: 41000
+    },
+    {
+        id: 4,
         name: "Launchpad",
-        img: Launchpad,
-        type: "Web3"
+        img: LaunchPad,
+        type: "Web3",
+        initialPph: 3000,
+        initialPrice: 95000
+    },
+    {
+        id: 5,
+        name: "NFT Marketplace",
+        img: NFTMarketplace,
+        type: "Web3",
+        initialPph: 2000,
+        initialPrice: 78000
     }
 ]
 
 export const SpecialsCards: Card[] = [
     {
+        id: 26,
+        name: "Call for BTC to rise",
+        img: CallForBTC,
+        type: "Specials",
+        initialPph: 5000,
+        initialPrice: 5000000
+    },
+    {
+        id: 25,
+        name: "Business jet",
+        img: BusinessJet,
+        type: "Specials",
+        initialPph: 3000,
+        initialPrice: 12000000
+    },
+    {
         id: 1,
         name: "CX Hub Istanbul",
         img: CX,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 3000,
+        initialPrice: 55000
     },
     {
         id: 2,
         name: "Hamster breaks records",
         img: HamsterBreaks,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 2750,
+        initialPrice: 500000
     },
     {
         id: 3,
         name: "X Network 10 Million",
         img: XNetwork,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 400,
+        initialPrice: 7000
     },
     {
         id: 4,
         name: "Hamster Green Energy",
         img: HamsterGreen,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 2000,
+        initialPrice: 17000
     },
     {
         id: 5,
         name: "YouTube 25 Million",
         img: YoutubeTwentyFive,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 2100,
+        initialPrice: 18000
     },
     {
         id: 6,
         name: "TG Leaders",
         img: TG,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 2290,
+        initialPrice: 22000
     },
     {
         id: 7,
         name: "Premarket Launch",
         img: Premarket,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 7500,
+        initialPrice: 1000000
     },
     {
         id: 8,
         name: "Hamster Kombat merch",
         img: Merch,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 100,
+        initialPrice: 3000
     },
     {
         id: 9,
         name: "TON + Hamster Kombat = Success",
         img: TONHamsterSuccess,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 5000,
+        initialPrice: 1000000
     },
     {
         id: 10,
         name: "Consensus Piranha Pass",
         img: Pirana,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1900,
+        initialPrice: 50000
     },
     {
         id: 11,
         name: "Web3 academy launch",
         img: WebThreeAccademy,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1500,
+        initialPrice: 11000
     },
     {
         id: 12,
         name: "Youtube Gold Button",
         img: GoldButton,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 275,
+        initialPrice: 2500
     },
     {
         id: 13,
         name: "Hamster YouTube channel",
         img: YoutubeChannel,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 250,
+        initialPrice: 1500
     },
     {
         id: 14,
         name: "Bitcoin Pizza Day",
         img: Pizza,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 100,
+        initialPrice: 1000
     },
     {
         id: 15,
         name: "Top 10 Global Ranking",
         img: TopTenGlobal,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1200,
+        initialPrice: 10000
     },
     {
         id: 16,
         name: "NFT Collection Launch",
         img: NFT,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1200,
+        initialPrice: 17000
     },
     {
         id: 17,
         name: "Special Hamster Conference",
         img: SpecialHamster,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 900,
+        initialPrice: 5000
     },
     {
         id: 18,
         name: "Short squeeze",
         img: ShortSqueeze,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1000,
+        initialPrice: 35000
     },
     {
         id: 19,
         name: "There are two chairs...",
         img: ThereAreTwo,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 2000,
+        initialPrice: 50000
     },
     {
         id: 20,
         name: "Long squeeze",
         img: LongSqueeze,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 2000,
+        initialPrice: 30000
     },
     {
         id: 21,
         name: "Villa for the DEV team",
         img: Villa,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 450,
+        initialPrice: 2000
     },
     {
         id: 22,
         name: "Apps Center Listing",
         img: AppCenter,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1000,
+        initialPrice: 15000
     },
     {
         id: 23,
         name: "Bogdanoff is calling",
         img: Bogdanoff,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 475,
+        initialPrice: 5000
     },
     {
         id: 24,
         name: "USDT on TON",
         img: USDT,
-        type: "Specials"
-    },
-    {
-        id: 25,
-        name: "Use this for time-limited cards",
-        img: Extra,
-        type: "Specials"
+        type: "Specials",
+        initialPph: 1350,
+        initialPrice: 10000
     }
+    // Check card id in top
 ]

@@ -1,16 +1,18 @@
-import { createContext, useState, ReactNode, FC } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { createContext, useState, ReactNode, FC, useEffect } from 'react';
 import { Drawer } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CombinedCard } from '../util/combineCards';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { convertStringToNumber } from '../util/numberFormat';
+import { formatNumber } from '../util/numberFormat';
 import { updateCard } from '../util/FirestoreService';
 import { cleanString } from '../util/cleanString';
 import { useCardData } from '../hooks/useCardData';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../firebase';
 import useUser from '../hooks/useUser';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import CoinImage from "../assets/coin.png";
 
 export interface CardDrawerContextType {
     isDrawerOpen: boolean;
@@ -18,10 +20,20 @@ export interface CardDrawerContextType {
     closeDrawer: () => void;
 }
 
-interface FormData {
-    pph: string;
-    price: string;
+
+type SampleDataType = {
+    pph: number;
+    price: number;
+    roiHours: number;
+    roiDays: string;
 }
+
+const initialSampleData: SampleDataType = {
+    pph: 0,
+    price: 0,
+    roiHours: 0,
+    roiDays: ''
+};
 
 // Create the context
 const CardDrawerContext = createContext<CardDrawerContextType | undefined>(undefined);
@@ -38,27 +50,20 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     // drawer
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [data, setData] = useState<CombinedCard>()
+    const [lvl, setLvl] = useState<number>(0)
+
+    const [sampleData, setSampleData] = useState<SampleDataType>(initialSampleData);
 
     // react hook form
-    const { register, handleSubmit, formState: { errors }, clearErrors, reset } = useForm<FormData>();
 
-    const onSubmit: SubmitHandler<FormData> = (formData) => {
-        setLoading(true);
+    const onSubmit = () => {
 
+        // if no data exit or skip
         if (!data) return;
 
-        const toUpdata = {
-            id: data.id,
-            pph: convertStringToNumber(formData.pph),
-            price: convertStringToNumber(formData.price),
-        }
+        if (data?.level == lvl) return;
 
-        // ! log
-        console.log({
-            id: data.id,
-            pph: convertStringToNumber(formData.pph),
-            price: convertStringToNumber(formData.price),
-        });
+        setLoading(true);
 
         const cardType = cleanString(data.type)
 
@@ -66,9 +71,8 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         if (user) {
             updateCard(user.id.toString(), cardType, {
-                id: toUpdata.id,
-                pph: toUpdata.pph as number,
-                price: toUpdata.price as number
+                id: data.id,
+                level: lvl
             }).then(() => {
                 //* Analytics
                 logEvent(analytics, "card_update", {
@@ -94,6 +98,10 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     // drawer
     const openDrawer = (data: CombinedCard) => {
 
+        if (data.level) {
+            setLvl(data.level)
+        }
+
         //* Analytics
         logEvent(analytics, "card_view", {
             cardName: data.name,
@@ -104,10 +112,64 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
     }
     const closeDrawer = () => {
         setIsDrawerOpen(false);
-        reset()
-        clearErrors()
+
+        // reset the local values
+        // setSampleData(initialSampleData);
+        setLvl(0);
+
     }
 
+    // inc dec handler
+    const handleLevelChange = (changeType: "inc" | "dec"): void => {
+        if (changeType === "inc") {
+            setLvl((prev) => {
+                if (prev === 25) return 25;
+
+                return prev + 1;
+            })
+        } else {
+            setLvl((prev) => {
+                if (prev === 0) return 0;
+
+                return prev - 1;
+            })
+        }
+    }
+
+    useEffect(() => {
+        //level pph and price finder
+
+        const findCardValues = (initialPph: number, initialPrice: number, cardLevel: number): { pph: number, price: number } => {
+
+            if (cardLevel === 0) return { pph: initialPph, price: initialPrice }
+
+            const nxtCardLevel = cardLevel + 1;
+
+            const pphGrowthFactor = 1.07; // PPH growth factor
+            const priceGrowthBase = 1.0246950765653693; // Base for price growth
+
+            const pph = Math.round(initialPph * Math.pow(pphGrowthFactor, nxtCardLevel - 1));
+            const price = Math.round(initialPrice * Math.pow(priceGrowthBase, (nxtCardLevel - 1) ** 2 + 3 * (nxtCardLevel - 1)));
+
+            return { pph, price }
+        }
+
+        if (data && data.initialPph !== undefined && data.initialPrice !== undefined) {
+            const { pph, price } = findCardValues(data.initialPph, data.initialPrice, lvl)
+
+            const roiHours = price / pph;
+            const roiDays = (roiHours / 24).toFixed(2);
+
+            // to prevent re-render
+            setSampleData(prevData => {
+                if (prevData.pph !== pph || prevData.price !== price || prevData.roiHours !== roiHours || prevData.roiDays !== roiDays) {
+                    return { pph, price, roiHours, roiDays };
+                }
+                return prevData;
+            });
+        }
+
+    }, [lvl, data])
 
     return (
         <CardDrawerContext.Provider value={{ isDrawerOpen, openDrawer, closeDrawer }}>
@@ -151,56 +213,77 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                             ></div>
                             <p className="text-xs font-bold ml-2 flex-1">{data?.name}</p>
                         </div>
+                        <p className='text-[#85888e] text-xs mt-1'>Open your {data?.name} card in "Hamster Kombat" and enter your card's exact level</p>
+                        <hr className='mt-2 p-1 border-[#464749]' />
 
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <p className='text-[#85888e] text-xs mt-1'>Open your card in "Hamster Kombat" & Enter the exact Profit per hour and Price of next level card</p>
-                            <hr className='mt-2 p-1 border-[#464749]' />
-                            <p>Profit per hour:</p>
-                            <div className='my-2'>
-                                <input
-                                    type='number'
-                                    autoComplete='off'
-                                    placeholder={data?.pph !== undefined ? data.pph.toString() : "Profit per hour"}
-                                    className='w-full px-4 py-2 border rounded-lg'
-                                    {...register("pph", {
-                                        required: "Profit per hour is required",
-                                        pattern: { value: /^[0-9]+$/, message: "Only numbers are allowed" }
-                                    })}
-                                />
-                                {errors.pph && <p className='text-red-500 text-sm mt-1'>{errors.pph.message}</p>}
-                            </div>
-                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,770 if your card pph is +1.77K.</p>
-                            <p>Price:</p>
-                            <div className='my-2'>
-                                <input
-                                    type='number'
-                                    autoComplete='off'
-                                    placeholder={data?.price !== undefined ? data.price.toString() : "Price"}
-                                    className='w-full px-4 py-2 border rounded-lg'
-                                    {...register("price", {
-                                        required: "Price is required",
-                                        pattern: { value: /^[0-9]+$/, message: "Only numbers are allowed" }
-                                    })}
-                                />
-                                {errors.price && <p className='text-red-500 text-sm mt-1'>{errors.price.message}</p>}
-                            </div>
-                            <p className='text-[#85888e] text-sm'>Ex: Enter 1,154,634 if your card price is 1.15M</p>
-                            <div className='my-2'>
-                                <LoadingButton
-                                    type='submit'
-                                    loading={loading}
-                                    variant='contained'
-                                    className='w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600'
+                        {/* Values */}
+                        <div className="text-xl text-left text-[#85888e]">
+                            Level: <span className='text-white'>{lvl}</span>
+                        </div>
+                        <div className="text-lg text-left text-[#85888e] mt-2">
+                            Profit per hour: <span className='text-white'>{formatNumber(sampleData.pph)}</span>
+                        </div>
+                        <div className="text-lg text-left flex items-center text-[#85888e]">
+                            Price:
+                            <img alt='logo' src={CoinImage} className='mx-[.2rem] w-[1rem] h-[1rem] mt-1' />
+                            <span className='text-white'>{formatNumber(sampleData.price)}</span>
+                        </div>
+                        <div className="text-lg text-left flex items-center text-[#85888e] mt-2">
+                            ROI: <span className='text-white mx-[.2rem]'> {sampleData.roiHours.toFixed(2)} hours / {sampleData.roiDays} days</span>
+                        </div>
+                        <hr className='mt-2 p-1 border-[#464749]' />
+
+                        <div className='my-2' onClick={() => onSubmit()}>
+                            <LoadingButton
+                                size='small'
+                                type='submit'
+                                loading={loading}
+                                variant='contained'
+                                className='w-full bg-blue-500 py-2 hover:bg-blue-600 h-14'
+                                sx={{
+                                    borderRadius: '12px',
+                                    textTransform: 'none',
+                                    '& .MuiCircularProgress-root': {
+                                        color: 'white',
+                                    },
+                                }}
+                            >
+                                Save
+                            </LoadingButton>
+                        </div>
+
+                        <hr className='mt-4 p-1 border-[#464749]' />
+
+                        {/* Level */}
+                        <div className='flex flex-col items-center mt-5'>
+                            <div className='flex items-center justify-evenly w-full'>
+                                <RemoveCircleIcon onClick={() => handleLevelChange("dec")} sx={{
+                                    cursor: 'pointer',
+                                    transition: 'transform 0.1s ease',
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                    },
+                                    '&:active': {
+                                        transform: 'scale(0.9)',
+                                    },
+                                }} />
+                                <p>{lvl}</p>
+                                <AddCircleIcon onClick={() => handleLevelChange("inc")}
                                     sx={{
-                                        '& .MuiCircularProgress-root': {
-                                            color: 'white',
+                                        cursor: 'pointer',
+                                        transition: 'transform 0.1s ease',
+                                        '&:hover': {
+                                            transform: 'scale(1.1)',
                                         },
-                                    }}
-                                >
-                                    Submit
-                                </LoadingButton>
+                                        '&:active': {
+                                            transform: 'scale(0.9)',
+                                        },
+                                    }} />
                             </div>
-                        </form>
+                            <p className='text-[#858689]'>Level</p>
+                        </div>
+
+                        <hr className='mt-2 p-1 border-[#464749]' />
                     </div>
                 </div>
             </Drawer>
