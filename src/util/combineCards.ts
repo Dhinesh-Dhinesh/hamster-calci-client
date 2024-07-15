@@ -18,7 +18,7 @@ export function combineCardsData(clientCards: ClientCard[], firebaseData: Fireba
             const pph = initialPph;
             const price = initialPrice;
             const roi = parseFloat((price / pph / 24).toFixed(2));
-            return { pph, price, roi};
+            return { pph, price, roi };
         }
 
         const nxtCardLevel = cardLevel + 1;

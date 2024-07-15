@@ -14,7 +14,7 @@ import { analytics } from '../firebase';
 export const EnterData: React.FC = () => {
 
     const [tab, setTab] = useState<string>("PR&Team")
-    const [cards, setCards] = useState<CombinedCard[] | null>(PRTeamCards);
+    const [cards, setCards] = useState<CombinedCard[]>(PRTeamCards);
 
     const { openDrawer } = useCardDrawer();
     const { cardData } = useCardData()
@@ -22,48 +22,33 @@ export const EnterData: React.FC = () => {
     // Change card data based on tabs
     useEffect(() => {
         switch (tab) {
-            case "PR&Team":
-                setCards(PRTeamCards)
-
-                if (cardData?.prteam) {
-                    const cardsData = combineCardsData(PRTeamCards, cardData.prteam);
-                    setCards(cardsData)
-                }
-                break
-            case "Markets":
-                setCards(MarketsCards)
-
-                if (cardData?.markets) {
-                    const cardsData = combineCardsData(MarketsCards, cardData.markets);
-                    setCards(cardsData)
-                }
-                break
-            case "Legal":
-                setCards(LegalCards)
-
-                if (cardData?.legal) {
-                    const cardsData = combineCardsData(LegalCards, cardData.legal);
-                    setCards(cardsData)
-                }
-                break
-            case "Web3":
-                setCards(Web3)
-
-                if (cardData?.web3) {
-                    const cardsData = combineCardsData(Web3, cardData.web3);
-                    setCards(cardsData)
-                }
-                break
-            case "Specials":
-                setCards(SpecialsCards)
-
-                if (cardData?.specials) {
-                    const cardsData = combineCardsData(SpecialsCards, cardData.specials);
-                    setCards(cardsData)
-                }
-                break
+            case "PR&Team": {
+                const cardsData = combineCardsData(PRTeamCards, cardData?.prteam ?? null);
+                setCards(cardsData);
+                break;
+            }
+            case "Markets": {
+                const cardsData = combineCardsData(MarketsCards, cardData?.markets ?? null);
+                setCards(cardsData);
+                break;
+            }
+            case "Legal": {
+                const cardsData = combineCardsData(LegalCards, cardData?.legal ?? null);
+                setCards(cardsData);
+                break;
+            }
+            case "Web3": {
+                const cardsData = combineCardsData(Web3, cardData?.web3 ?? null);
+                setCards(cardsData);
+                break;
+            }
+            case "Specials": {
+                const cardsData = combineCardsData(SpecialsCards, cardData?.specials ?? null);
+                setCards(cardsData);
+                break;
+            }
             default:
-                break
+                break;
         }
     }, [tab, cardData])
 
