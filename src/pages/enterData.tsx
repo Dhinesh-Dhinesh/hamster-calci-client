@@ -16,6 +16,9 @@ export const EnterData: React.FC = () => {
     const [tab, setTab] = useState<string>("PR&Team")
     const [cards, setCards] = useState<CombinedCard[]>(PRTeamCards);
 
+    const [calciPrice, setCalciPrice] = useState<number>(0)
+    const [calciPph, setCalciPph] = useState<number>(0)
+
     const { openDrawer } = useCardDrawer();
     const { cardData } = useCardData()
 
@@ -92,6 +95,25 @@ export const EnterData: React.FC = () => {
                     ))
                 }
             </div>
+
+            {/* ROI calculator */}{
+                tab === "Specials" && (
+                    <div className='bg-cardBackground text-gray-500 my-2 mx-4 p-2 rounded-lg flex flex-col'>
+                        <p className='text-gray-400 font-bold mb-1'>ROI calculator for time limited cards</p>
+                        <p className='my-1'>Profit per hour</p>
+                        <input type='number' className='p-1 rounded' onChange={(e) => setCalciPph(parseFloat(e.target.value))} />
+                        <p className='my-1'>Price</p>
+                        <input type='number' className='p-1 rounded' onChange={(e) => setCalciPrice(parseFloat(e.target.value))} />
+                        <p className='mt-2 text-gray-400'>
+                            ROI : {
+                                (!!calciPrice && !!calciPph)
+                                    ? `${parseFloat((calciPrice / calciPph / 24).toFixed(2))} days`
+                                    : '-'
+                            }
+                        </p>
+                    </div>
+                )
+            }
         </>
     )
 }
