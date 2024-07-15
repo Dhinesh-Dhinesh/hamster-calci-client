@@ -11,42 +11,45 @@ type FirebaseData = {
 
 export type CombinedCard = ClientCard & Partial<FirebaseData> & { roi?: number };
 
-export function combineCardsData(clientCards: ClientCard[], firebaseData: FirebaseData[] | null): CombinedCard[] | ClientCard[] {
+export function combineCardsData(clientCards: ClientCard[], firebaseData: FirebaseData[] | null): CombinedCard[] {
 
-    // If data not available in firestore return client cards
-    if (firebaseData === null) return clientCards;
+    const findCardValues = (initialPph: number, initialPrice: number, cardLevel: number): { pph: number, price: number, roi: number } => {
+        if (cardLevel === 0) {
+            const pph = initialPph;
+            const price = initialPrice;
+            const roi = parseFloat((price / pph / 24).toFixed(2));
+            return { pph, price, roi };
+        }
 
-    const firebaseDataMap = new Map(firebaseData.map(item => [item.id, item]));
+        const nxtCardLevel = cardLevel + 1;
+
+        const pphGrowthFactor = 1.07; // PPH growth factor
+        const priceGrowthBase = 1.0246950765653693; // Base for price growth
+
+        const pph = Math.round(initialPph * Math.pow(pphGrowthFactor, nxtCardLevel - 1));
+        const price = Math.round(initialPrice * Math.pow(priceGrowthBase, (nxtCardLevel - 1) ** 2 + 3 * (nxtCardLevel - 1)));
+        const roi = parseFloat((price / pph / 24).toFixed(2));
+
+        return { pph, price, roi };
+    }
+
+    const firebaseDataMap = firebaseData ? new Map(firebaseData.map(item => [item.id, item])) : new Map();
 
     return clientCards.map(card => {
         const firebaseItem = firebaseDataMap.get(card.id);
         const combinedCard: CombinedCard = { ...card, ...firebaseItem };
-        if (firebaseItem) {
-            //level pph and price finder
 
-            const findCardValues = (initialPph: number, initialPrice: number, cardLevel: number): { pph: number, price: number } => {
+        // Use values from firebaseItem if present, otherwise fallback to clientCard
+        const initialPph = card.initialPph;
+        const initialPrice = card.initialPrice;
+        const cardLevel = firebaseItem?.level ?? 0; // Defaults to 0 if level is not present
 
-                if (cardLevel === 0) return { pph: initialPph, price: initialPrice }
+        const { pph, price, roi } = findCardValues(initialPph, initialPrice, cardLevel);
 
-                const nxtCardLevel = cardLevel + 1;
-
-                const pphGrowthFactor = 1.07; // PPH growth factor
-                const priceGrowthBase = 1.0246950765653693; // Base for price growth
-
-                const pph = Math.round(initialPph * Math.pow(pphGrowthFactor, nxtCardLevel - 1));
-                const price = Math.round(initialPrice * Math.pow(priceGrowthBase, (nxtCardLevel - 1) ** 2 + 3 * (nxtCardLevel - 1)));
-
-                return { pph, price }
-            }
-
-            const { pph, price } = findCardValues(combinedCard.initialPph, combinedCard.initialPrice, firebaseItem.level as number)
-
-
-            combinedCard.roi = parseFloat((price / pph / 24).toFixed(2));
-            combinedCard.pph = pph;
-            combinedCard.price = price;
-
-        }
+        combinedCard.pph = pph;
+        combinedCard.price = price;
+        combinedCard.roi = roi;
+        combinedCard.level = cardLevel;
 
         return combinedCard;
     });
