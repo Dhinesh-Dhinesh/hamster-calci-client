@@ -118,6 +118,7 @@ import Bogdanoff from "../assets/icons/bogdanoff.png"
 import USDT from "../assets/icons/usdt.png"
 import BusinessJet from "../assets/icons/business_jet.png"
 import CallForBTC from "../assets/icons/cal_for_btc.png"
+import Rolex from "../assets/icons/rolex_for_soulmate.png"
 
 export type Card = {
     id: number,
@@ -782,6 +783,14 @@ export const Web3: Card[] = [
 ]
 
 export const SpecialsCards: Card[] = [
+    {
+        id: 27,
+        name: "Rolex for soulmate",
+        img: Rolex,
+        type: "Specials",
+        initialPph: 1000,
+        initialPrice: 1000000
+    },
     {
         id: 26,
         name: "Call for BTC to rise",
