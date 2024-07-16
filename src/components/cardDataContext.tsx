@@ -5,8 +5,8 @@ import useUser from '../hooks/useUser';
 export type CardDataContextType = {
     cardData: CardData | null;
     setCardData: React.Dispatch<React.SetStateAction<CardData | null>>;
-    refetchCards: () => void;
     cardDataLoading: boolean;
+    updateCardData: (type: keyof CardData, id: number, level: number) => void;
 };
 
 const CardDataContext = createContext<CardDataContextType | undefined>(undefined);
@@ -33,12 +33,34 @@ const CardDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         await getData();
     };
 
+    const updateCardData = (type: keyof CardData, id: number, level: number) => {
+        const newData = { id, level };
+
+        if (cardData && cardData[type]) {
+            const tempType = cardData[type];
+            const index = tempType.findIndex(card => card.id === id);
+
+            if (index !== -1) {
+                // Update existing card
+                tempType[index] = { ...tempType[index], level };
+            } else {
+                // Add new card
+                tempType.push(newData);
+            }
+
+            // Update the state
+            setCardData({ ...cardData, [type]: tempType });
+        } else {
+            refetchCards()
+        }
+    }
+
     useEffect(() => {
         getData();
     }, [getData]);
 
     return (
-        <CardDataContext.Provider value={{ cardData, setCardData, refetchCards, cardDataLoading }}>
+        <CardDataContext.Provider value={{ cardData, setCardData, cardDataLoading, updateCardData }}>
             {children}
         </CardDataContext.Provider>
     );

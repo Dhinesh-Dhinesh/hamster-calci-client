@@ -41,7 +41,7 @@ const CardDrawerContext = createContext<CardDrawerContextType | undefined>(undef
 // Create a provider component
 const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
-    const { refetchCards } = useCardData();
+    const { updateCardData } = useCardData();
     const { user } = useUser();
 
     //Submit loading
@@ -79,8 +79,9 @@ const CardDrawerProvider: FC<{ children: ReactNode }> = ({ children }) => {
                     cardName: data.name
                 })
 
-                // refetch cards data then change loading state & close drawer
-                refetchCards()
+                //update card data
+                updateCardData(cleanString(data.type), data.id, lvl)
+
                 setLoading(false);
                 closeDrawer();
             }).catch(err => {
