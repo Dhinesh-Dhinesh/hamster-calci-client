@@ -119,6 +119,7 @@ import USDT from "../assets/icons/usdt.png"
 import BusinessJet from "../assets/icons/business_jet.png"
 import CallForBTC from "../assets/icons/cal_for_btc.png"
 import Rolex from "../assets/icons/rolex_for_soulmate.png"
+import Apple from "../assets/icons/apple.png"
 
 export type Card = {
     id: number,
@@ -783,6 +784,14 @@ export const Web3: Card[] = [
 ]
 
 export const SpecialsCards: Card[] = [
+    {
+        id: 28,
+        name: "Apple Appstore Launch",
+        img: Apple,
+        type: "Specials",
+        initialPph: 5000,
+        initialPrice: 95000
+    },
     {
         id: 27,
         name: "Rolex for soulmate",
