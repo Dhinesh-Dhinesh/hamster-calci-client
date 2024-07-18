@@ -7,30 +7,43 @@ type FirebaseData = {
     pph?: number;
     price?: number;
     level?: number;
+    totalPph?: number;
+    totalPrice?: number;
 };
 
 export type CombinedCard = ClientCard & Partial<FirebaseData> & { roi?: number };
 
 export function combineCardsData(clientCards: ClientCard[], firebaseData: FirebaseData[] | null): CombinedCard[] {
 
-    const findCardValues = (initialPph: number, initialPrice: number, cardLevel: number): { pph: number, price: number, roi: number } => {
-        if (cardLevel === 0) {
-            const pph = initialPph;
-            const price = initialPrice;
-            const roi = parseFloat((price / pph / 24).toFixed(2));
-            return { pph, price, roi };
-        }
+    const findCardValues = (initialPph: number, initialPrice: number, cardLevel: number): { pph: number, price: number, roi: number, totalPph: number, totalPrice: number } => {
+        let totalPph = 0;
+        let totalPrice = 0;
 
-        const nxtCardLevel = cardLevel + 1;
+        if (cardLevel === 0) {
+            // Ignore the card if the level is 0
+            return { pph: initialPph, price: initialPrice, roi: parseFloat((initialPrice / initialPph / 24).toFixed(2)), totalPph, totalPrice };
+        }
 
         const pphGrowthFactor = 1.07; // PPH growth factor
         const priceGrowthBase = 1.0246950765653693; // Base for price growth
 
-        const pph = Math.round(initialPph * Math.pow(pphGrowthFactor, nxtCardLevel - 1));
-        const price = Math.round(initialPrice * Math.pow(priceGrowthBase, (nxtCardLevel - 1) ** 2 + 3 * (nxtCardLevel - 1)));
-        const roi = parseFloat((price / pph / 24).toFixed(2));
+        for (let lvl = 1; lvl <= cardLevel + 1; lvl++) {
+            const pph = Math.round(initialPph * Math.pow(pphGrowthFactor, lvl - 1));
+            const price = Math.round(initialPrice * Math.pow(priceGrowthBase, (lvl - 1) ** 2 + 3 * (lvl - 1)));
 
-        return { pph, price, roi };
+            if (lvl <= cardLevel) {
+                totalPph += pph;
+                totalPrice += price;
+            }
+
+            // Calculate roi for the last level
+            if (lvl === cardLevel + 1) {
+                const roi = parseFloat((price / pph / 24).toFixed(2));
+                return { pph, price, roi, totalPph, totalPrice };
+            }
+        }
+
+        return { pph: totalPph, price: totalPrice, roi: 0, totalPph, totalPrice }; // Default roi to 0 if not calculated
     }
 
     const firebaseDataMap = firebaseData ? new Map(firebaseData.map(item => [item.id, item])) : new Map();
@@ -44,11 +57,13 @@ export function combineCardsData(clientCards: ClientCard[], firebaseData: Fireba
         const initialPrice = card.initialPrice;
         const cardLevel = firebaseItem?.level ?? 0; // Defaults to 0 if level is not present
 
-        const { pph, price, roi } = findCardValues(initialPph, initialPrice, cardLevel);
+        const { pph, price, roi, totalPph, totalPrice } = findCardValues(initialPph, initialPrice, cardLevel);
 
         combinedCard.pph = pph;
         combinedCard.price = price;
         combinedCard.roi = roi;
+        combinedCard.totalPph = totalPph;
+        combinedCard.totalPrice = totalPrice;
         combinedCard.level = cardLevel;
 
         return combinedCard;
