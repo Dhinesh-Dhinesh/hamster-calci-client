@@ -63,11 +63,9 @@ export const TopCards: React.FC = () => {
                 .filter(isCombinedCard) // Filter cards that are CombinedCard with necessary properties
                 .filter(card => card.roi !== undefined && !isNaN(card.roi)); // Exclude cards with ROI NaN or undefined
 
-            let sortedCards: CombinedCard[];
-
             if (sortType === 'paybackdays') {
                 // Sort by ROI
-                sortedCards = filteredCards.sort((a, b) => (a.roi ?? 0) - (b.roi ?? 0));
+                const sortedCards = filteredCards.sort((a, b) => (a.roi ?? 0) - (b.roi ?? 0));
                 setCards(sortedCards)
             } else if (sortType === 'lowtohigh') {
 

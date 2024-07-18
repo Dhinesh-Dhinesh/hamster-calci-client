@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import useUser from './hooks/useUser';
 
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
@@ -7,9 +7,12 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
 import hamsterLogo from "./assets/hamster-kombat-coin.png"
 import { TopCards } from './pages/topCards';
 import { EnterData } from './pages/enterData';
+const Stats = lazy(() => import('./pages/stats'));
 import QRcode from "./assets/qrcode.svg"
 import StyleIcon from '@mui/icons-material/Style';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import CircularProgress from '@mui/material/CircularProgress';
 
 // Firebase
 import { logEvent } from 'firebase/analytics';
@@ -23,6 +26,7 @@ type ScreenViews = {
 const screenViews: ScreenViews = {
   '/': { screenName: 'Top cards', screenClass: 'TopCards' },
   '/enter-data': { screenName: 'Enter data', screenClass: 'EnterData' },
+  '/stats': { screenName: 'Stats', screenClass: 'Statistics' },
 };
 
 const App: React.FC = () => {
@@ -66,20 +70,29 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<TopCards />} />
           <Route path="/enter-data" element={<EnterData />} />
+          <Route path="/stats" element={<Suspense fallback={
+            <div className='w-full h-[30rem] flex justify-center items-center'>
+              <CircularProgress sx={{ color: "#f3ba2f" }} />
+            </div>
+          }><Stats /></Suspense>} />
         </Routes>
         {/* container end */}
       </div>
 
       {/* bottom tab */}
       <div className='bg-cardBackground mx-[1rem] p-1 rounded-2xl flex justify-evenly fixed bottom-0 left-0 right-0 z-50 border-2 border-background'>
-        <button className={`text-sm font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
+        <button className={`text-xs font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/')
         }
         }><StyleIcon className='mr-2' fontSize="small" />Top Cards</button>
-        <button className={`text-sm font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/enter-data" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
+        <button className={`text-xs font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/enter-data" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
           navigate('/enter-data')
         }
         }><FileCopyIcon className='mr-2' fontSize="small" />Enter Data</button>
+        <button className={`text-xs font-bold h-12 w-1/2 items-center flex justify-center ${location.pathname === "/stats" ? "bg-background rounded-2xl" : ""}`} onClick={() => {
+          navigate('/stats')
+        }
+        }><MonetizationOnIcon className='mr-2' fontSize="small" />Statistics</button>
       </div>
 
     </div>
