@@ -120,7 +120,7 @@ export const TopCards: React.FC = () => {
                     <p className="text-xs text-[#85888e]">Active users: {activeUsers}</p>
                 </div>
                 <div className="flex justify-between text-center">
-                    <p className="text-xs text-[#85888e]">Based on your data</p>
+                    <p className="text-xs text-[#85888e]">Based on your card levels</p>
                     {/* How to use link */}
                     <div className="text-xs flex items-center text-[#85888e]" onClick={openHowToUse}>
                         <p>How to use</p>
