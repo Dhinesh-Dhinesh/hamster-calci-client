@@ -120,6 +120,7 @@ import BusinessJet from "../assets/icons/business_jet.png"
 import CallForBTC from "../assets/icons/cal_for_btc.png"
 import Rolex from "../assets/icons/rolex_for_soulmate.png"
 import Apple from "../assets/icons/apple.png"
+import FiftyMTelegram from "../assets/icons/fifty_telegram_channel.png"
 
 export type Card = {
     id: number,
@@ -784,6 +785,14 @@ export const Web3: Card[] = [
 ]
 
 export const SpecialsCards: Card[] = [
+    {
+        id: 29,
+        name: "50M Telegram channel",
+        img: FiftyMTelegram,
+        type: "Specials",
+        initialPph: 1000,
+        initialPrice: 50000
+    },
     {
         id: 28,
         name: "Apple Appstore Launch",
