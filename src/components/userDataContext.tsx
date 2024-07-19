@@ -40,15 +40,15 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
                 });
             }
             //! For testing uncomment this line 
-            // else {
-            //     setUser({
-            //         id: 11111111,
-            //         first_name: "userData.first_name",
-            //         last_name: "userData.last_name",
-            //         username: "userData.username",
-            //         chat_id: 213321,
-            //     });
-            // }
+            else {
+                setUser({
+                    id: 11111111,
+                    first_name: "For Test - webapp made for mobile phones only",
+                    last_name: "",
+                    username: "removed login for adsense",
+                    chat_id: 213321,
+                });
+            }
         }
 
         const getRandomActiveUserLevel = (min = 10, max = 150) => {

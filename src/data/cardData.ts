@@ -121,6 +121,7 @@ import CallForBTC from "../assets/icons/cal_for_btc.png"
 import Rolex from "../assets/icons/rolex_for_soulmate.png"
 import Apple from "../assets/icons/apple.png"
 import FiftyMTelegram from "../assets/icons/fifty_telegram_channel.png"
+import HamsterAnalytics from "../assets/icons/hamster_analytics.png"
 
 export type Card = {
     id: number,
@@ -785,6 +786,14 @@ export const Web3: Card[] = [
 ]
 
 export const SpecialsCards: Card[] = [
+    {
+        id: 30,
+        name: "Hamster Analytics",
+        img: HamsterAnalytics,
+        type: "Specials",
+        initialPph: 2000,
+        initialPrice: 75000
+    },
     {
         id: 29,
         name: "50M Telegram channel",
