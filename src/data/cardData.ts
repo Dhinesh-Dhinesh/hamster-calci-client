@@ -32,6 +32,7 @@ import WelcomeToAmsterdam from "../assets/icons/welcome_to_ams.png"
 import DevHubMumbai from "../assets/icons/development_hub_mumbai.png"
 import DataCenterTokyo from "../assets/icons/data_center_tokyo.png"
 import LeaderBoard from "../assets/icons/leaderboards.png"
+import Minigame from "../assets/icons/mini_game.png"
 
 // Markets
 
@@ -122,6 +123,7 @@ import Rolex from "../assets/icons/rolex_for_soulmate.png"
 import Apple from "../assets/icons/apple.png"
 import FiftyMTelegram from "../assets/icons/fifty_telegram_channel.png"
 import HamsterAnalytics from "../assets/icons/hamster_analytics.png"
+import MiniAppLaunch from "../assets/icons/miniapp_launch.png"
 
 export type Card = {
     id: number,
@@ -389,6 +391,14 @@ export const PRTeamCards: Card[] =
             type: "PR&Team",
             initialPph: 750,
             initialPrice: 20000
+        },
+        {
+            id: 33,
+            name: "Minigame",
+            img: Minigame,
+            type: "PR&Team",
+            initialPph: 1000,
+            initialPrice: 40000
         }
     ]
 
@@ -786,6 +796,14 @@ export const Web3: Card[] = [
 ]
 
 export const SpecialsCards: Card[] = [
+    {
+        id: 31,
+        name: "Telegram Miniapp Launch",
+        img: MiniAppLaunch,
+        type: "Specials",
+        initialPph: 1000,
+        initialPrice: 25000
+    },
     {
         id: 30,
         name: "Hamster Analytics",
