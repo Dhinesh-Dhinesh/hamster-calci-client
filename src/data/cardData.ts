@@ -124,6 +124,9 @@ import Apple from "../assets/icons/apple.png"
 import FiftyMTelegram from "../assets/icons/fifty_telegram_channel.png"
 import HamsterAnalytics from "../assets/icons/hamster_analytics.png"
 import MiniAppLaunch from "../assets/icons/miniapp_launch.png"
+import StarIntegration from "../assets/icons/star_integration.png"
+import HamsterBank from "../assets/icons/hamsterbank.png"
+
 
 export type Card = {
     id: number,
@@ -797,6 +800,22 @@ export const Web3: Card[] = [
 
 export const SpecialsCards: Card[] = [
     {
+        id: 33,
+        name: "HamsterBank",
+        img: HamsterBank,
+        type: "Specials",
+        initialPph: 19000,
+        initialPrice: 300000
+    },
+    {
+        id: 32,
+        name: "Telegram Stars Integration",
+        img: StarIntegration,
+        type: "Specials",
+        initialPph: 800,
+        initialPrice: 17000
+    },
+    {
         id: 31,
         name: "Telegram Miniapp Launch",
         img: MiniAppLaunch,
@@ -822,7 +841,7 @@ export const SpecialsCards: Card[] = [
     },
     {
         id: 28,
-        name: "Apple Appstore Launch",
+        name: "HamsterStore Launch",
         img: Apple,
         type: "Specials",
         initialPph: 5000,
