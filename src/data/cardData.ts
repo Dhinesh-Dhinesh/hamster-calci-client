@@ -90,6 +90,8 @@ import Oracle from "../assets/icons/oracle.png"
 import Vesting from "../assets/icons/vesting.png"
 import LaunchPad from "../assets/icons/launchpad.png"
 import NFTMarketplace from "../assets/icons/nft_marketplace.png"
+import GrantForDevelopers from "../assets/icons/developers.png"
+
 
 // Specials
 
@@ -795,6 +797,14 @@ export const Web3: Card[] = [
         type: "Web3",
         initialPph: 2000,
         initialPrice: 78000
+    },
+    {
+        id: 6,
+        name: "Grant for Developers",
+        img: GrantForDevelopers,
+        type: "Web3",
+        initialPph: 4000,
+        initialPrice: 100000
     }
 ]
 
