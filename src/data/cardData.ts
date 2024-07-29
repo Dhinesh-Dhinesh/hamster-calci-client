@@ -91,6 +91,7 @@ import Vesting from "../assets/icons/vesting.png"
 import LaunchPad from "../assets/icons/launchpad.png"
 import NFTMarketplace from "../assets/icons/nft_marketplace.png"
 import GrantForDevelopers from "../assets/icons/developers.png"
+import NFTMetaverse from "../assets/icons/metaverse.png"
 
 
 // Specials
@@ -805,6 +806,14 @@ export const Web3: Card[] = [
         type: "Web3",
         initialPph: 4000,
         initialPrice: 100000
+    },
+    {
+        id: 7,
+        name: "NFT Metaverse",
+        img: NFTMetaverse,
+        type: "Web3",
+        initialPph: 2000,
+        initialPrice: 500000
     }
 ]
 
