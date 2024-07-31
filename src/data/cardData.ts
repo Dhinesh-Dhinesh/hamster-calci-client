@@ -92,6 +92,7 @@ import LaunchPad from "../assets/icons/launchpad.png"
 import NFTMarketplace from "../assets/icons/nft_marketplace.png"
 import GrantForDevelopers from "../assets/icons/developers.png"
 import NFTMetaverse from "../assets/icons/metaverse.png"
+import CryptoFarming from "../assets/icons/crypto_farming.png"
 
 
 // Specials
@@ -814,6 +815,14 @@ export const Web3: Card[] = [
         type: "Web3",
         initialPph: 2000,
         initialPrice: 500000
+    },
+    {
+        id: 8,
+        name: "Crypto Farming",
+        img: CryptoFarming,
+        type: "Web3",
+        initialPph: 3000,
+        initialPrice: 150000
     }
 ]
 
