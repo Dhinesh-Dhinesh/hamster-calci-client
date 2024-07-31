@@ -93,6 +93,7 @@ import NFTMarketplace from "../assets/icons/nft_marketplace.png"
 import GrantForDevelopers from "../assets/icons/developers.png"
 import NFTMetaverse from "../assets/icons/metaverse.png"
 import CryptoFarming from "../assets/icons/crypto_farming.png"
+import SportCollectibles from "../assets/icons/collectibles.png"
 
 
 // Specials
@@ -823,6 +824,14 @@ export const Web3: Card[] = [
         type: "Web3",
         initialPph: 3000,
         initialPrice: 150000
+    },
+    {
+        id: 9,
+        name: "Sport Collectibles Marketplace",
+        img: SportCollectibles,
+        type: "Web3",
+        initialPph: 700,
+        initialPrice: 15000
     }
 ]
 
